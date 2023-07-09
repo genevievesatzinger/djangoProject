@@ -18,8 +18,12 @@ def home(request):
         print("Error: ", e)
     root = ET.fromstring(response.content)
     content = ''
-    for child in root:
-        content += child.tag + '  '
+
+    for child in root.find('StudyFieldsList'):
+        print(child.tag, child.attrib)
+        for ch2 in child.find('FieldValues'):
+            print(ch2.text)
+        # content += child.tag + '  '
     return HttpResponse(content)
     #return render(request, 'apiconnect/home.html')
 
