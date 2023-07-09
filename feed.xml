@@ -1,0 +1,240 @@
+<StudyFieldsResponse>
+  <APIVrs>1.01.05</APIVrs>
+  <DataVrs>2023:07:06 23:39:06.852</DataVrs>
+  <Expression>heart attack</Expression>
+  <NStudiesAvail>458068</NStudiesAvail>
+  <NStudiesFound>9899</NStudiesFound>
+  <MinRank>1</MinRank>
+  <MaxRank>20</MaxRank>
+  <NStudiesReturned>20</NStudiesReturned>
+  <FieldList>
+    <Field>NCTId</Field>
+    <Field>BriefTitle</Field>
+    <Field>Condition</Field>
+  </FieldList>
+  <StudyFieldsList>
+    <StudyFields Rank="1">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT05654389</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Effectiveness of Teleconsultation in Referring a Patient With Early Myocardial Infarction From Peripheral Hospital to Cardiac Centre in Hail, Saudi Arabia</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Telemedicine</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="2">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT01874691</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>China Acute Myocardial Infarction Registry</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Acute Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="3">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT03015064</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Post-Myocardial Infarction Patients in Santa Catarina, Brazil - Catarina Heart Study</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="4">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT01168609</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Left Atrial Distensibility and Left Ventricular Filling Pressure in Acute Myocardial Infarction</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="5">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT03412435</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Asan Medical Center Myocardial Infarction Registry</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction, Acute</FieldValue>
+        <FieldValue>Coronary Stenosis</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="6">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT04628104</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>CMR Findings in COVID-19 Patients Presenting With Myocardial Infarction</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="7">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT00632788</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>The Influence of Acute Myocardial Infarction Checklist on the Door-to-Balloon Time</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="8">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT01484158</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Gait Speed for Predicting Cardiovascular Events After Myocardial Infarction</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="9">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT00888537</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Wiser Choices in Acute Myocardial Infarction</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Acute Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="10">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT05090618</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>The Role of Genetic Factors in the Development of Myocardial Infarction in the Kazakh Population</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Heart Attack</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="11">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT01109225</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Relation Between Aldosterone and Cardiac Remodeling After Myocardial Infarction</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="12">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT02913820</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Association of Snowfall and Myocardial Infarction</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Acute Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="13">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT03022552</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Heart Attack Research Program: Platelet Sub-Study (HARP)</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="14">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT02072850</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Detection and Significance of Heart Injury in ST Elevation Myocardial Infarction.</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Acute ST-elevation Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="15">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT00597922</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Examining Heart Attacks in Young Women</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Acute Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="16">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT01182064</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Acute Myocardial Infarction by Penetrating Cardiac Trauma</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="17">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT04957719</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Selatogrel Outcome Study in Suspected Acute Myocardial Infarction</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Acute Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="18">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT04050163</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>MiSaver® Stem Cell Treatment for Heart Attack (Acute Myocardial Infarction)</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="19">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT01150825</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Feasibility of High Frequency QRS Analysis in Patients With Acute Myocardial Infarction</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Myocardial Infarction</FieldValue>
+      </FieldValues>
+    </StudyFields>
+    <StudyFields Rank="20">
+      <FieldValues Field="NCTId">
+        <FieldValue>NCT01936675</FieldValue>
+      </FieldValues>
+      <FieldValues Field="BriefTitle">
+        <FieldValue>Myocardial Infarction Genes (MI-GENES) Study</FieldValue>
+      </FieldValues>
+      <FieldValues Field="Condition">
+        <FieldValue>Coronary Artery Disease</FieldValue>
+        <FieldValue>Myocardial Infarction</FieldValue>
+        <FieldValue>Genomic Risk Communication</FieldValue>
+      </FieldValues>
+    </StudyFields>
+  </StudyFieldsList>
+</StudyFieldsResponse>
