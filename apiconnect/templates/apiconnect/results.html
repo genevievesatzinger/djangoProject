@@ -2,30 +2,59 @@
 
 {% block content %}
 
-<style>
-    .room-container{
-        display: grid;
-        grid-template-columns: 3fr 1fr;
-    }
-</style>
-
-<div class="room-container">
+<div class="container">
     <div>
 
-    
-        <div class="comment-wrapper">
-            <h3>Results</h3>
-            <hr>
-    
-
+        <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        {% for Field in FieldList.Field %}
+                        <th>
+                            {{Field}}
+                        </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for StudyField in StudyFieldsList.StudyFields %}
+                        <tr>
+                            {% for Field in StudyField %}
+                            <td>
+                                {{Field.FieldValue}}
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+            
+            <div class="d-flex justify-content-center">
+                {% if pre_rank %}
+                <form id="hiddenForm" method="POST" action="{% url 'results' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="search_query" value="{{search_query}}">
+                    <input type="hidden" name="result_rnk" value="{{pre_rank}}">
+                    <button id="preButton" class="btn btn-primary  mx-1">Previous</button>
+                </form>
+                {% endif %}
+                
+                {% if next_rank %}
+                <form id="hiddenForm" method="POST" action="{% url 'results' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="search_query" value="{{search_query}}">
+                    <input type="hidden" name="result_rnk" value="{{next_rank}}">
+                    <button id="nextButton" class="btn btn-primary">Next</button>
+                </form>
+                {% endif %}
+            </div>
+            
         </div>
-    
 
     </div>
 
     <div>
-        <h3>Participants</h3>
-        <hr>
+
 
     </div>
 
