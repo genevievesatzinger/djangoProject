@@ -1,0 +1,138 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% load static %}
+
+{% if page == 'login' %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<style>
+
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* Full width input fields */
+    input[type=text] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    /* Style for all buttons */
+    button {
+        background-color: #8f5c5c;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    } 
+
+    button:hover {
+        opacity: 0.9;
+    }
+
+    /* Center image */
+    .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0
+    }
+
+    img.logo {
+        width: 40%;
+        border-radius: 50%;
+    }
+
+    .container {
+        padding: 16px
+    }
+
+    .smallContainer {
+        padding: 10px 10px;
+        margin: auto;
+        width: fit-content;
+        align-self: center;
+    }
+
+    
+
+
+</style>
+
+
+<body>
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <div class="imgcontainer">
+            <img src="{% static 'apiconnect/images/logo.png' %}" alt="FindMyClinicalTrial Logo">
+        </div>
+
+        <div class="container">
+            <label for="email" style="font-family: sans-serif">Email:</label>
+            <br>
+            <input type="text" name="email" placeholder="Enter Email" required/>
+
+            <br>
+            <br>
+        
+            <label for="username" style="font-family: sans-serif">Username:</label>
+            <br>
+            <input type="text" name="username" placeholder="Enter Username" required/>
+
+            <button type="submit">Login</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember">Remember me
+            </label>
+
+        </div>
+
+        <div class="smallContainer" style="background-color: rgb(183, 214, 204);">
+
+            <p style="font-family: arial; text-align: center;">
+                New to FindMyClinicalTrial?
+                <a href="{% url 'register' %}"; style="font-family: arial;">Create Account</a>
+            </p>
+        
+        </div>
+
+        <br>
+        <br>
+
+    </form>
+</div>
+
+{% else %}
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        
+        <button type="submit">Register</button>
+
+    </form>
+
+    <p style="font-family: arial; text-align: center;">
+        Already have an account with us?
+        <a href="{% url 'login' %}"; style="font-family: arial;">Login</a>
+    </p>
+</div>
+
+
+
+</body>
+
+</html>
+
+{% endif %}
+
+{% endblock content %}
