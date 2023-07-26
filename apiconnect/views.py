@@ -1,9 +1,83 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 from django.http import HttpResponse
 import xml.etree.ElementTree as ET
 import urllib.parse
 from .parseXML import XmlDictConfig
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.decorators import login_required
+
+
+
+def login_page(request):
+
+    page = "login"
+
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    if request.method == "POST":
+        # get email and username
+        email = request.POST.get('email')
+        username = request.POST.get('username').lower()
+
+        # check if user exists
+        try:
+            user = User.objects.get(username=username)
+        except:
+            # implement message from django
+            messages.error(request, "User does not exist.")
+            # add in message syntax to navbar to display message
+
+        # if user exists, check credentials
+        # get user object based on email and username
+        user = authenticate(request, email=email, username=username)
+
+        # log user in
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, "Email or username does not exist.")
+
+    context = {"page": page}
+    return render(request, "apiconnect/login_register.html", context)
+
+def logout_user(request):
+    logout(request)
+    return redirect('home')
+
+def register_user(request):
+    form = UserCreationForm()
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            # Saving and freezing form to access user that is created
+            # Making sure name is clean (no accidental caps etc.)
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            # Now that user is registered, login and redirect user
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Error occurred while creating your account.')
+
+    return render(request, 'apiconnect/login_register.html', {'form':form})
+
+# Code for restricting pages before login
+# What pages do we want to restrict while the user is not logged in?
+# Or just certain pieces of a page? Like in the results page - "save"
+# Add this decorator before url function
+
+# @login_required(login_url='/login')
+
+# if request.user != page.host:
+#     return HttpResponse("Login to your account to access this page.")
 
 
 def home(request):
