@@ -13,6 +13,7 @@
 
     body {font-family: Arial, Helvetica, sans-serif;}
 
+    
     /* Full width input fields */
     input[type=text] {
         width: 100%;
@@ -25,8 +26,8 @@
 
     /* Style for all buttons */
     button {
-        background-color: #8f5c5c;
-        color: white;
+        background-color: #babedd;
+        color: black;
         padding: 14px 20px;
         margin: 8px 0;
         border: none;
@@ -35,58 +36,63 @@
     } 
 
     button:hover {
-        opacity: 0.9;
+        opacity: 0.7;
     }
 
-    /* Center image */
-    .imgcontainer {
+    .heading {
+        font-size: 26px;
+        position: relative;
         text-align: center;
-        margin: 24px 0 12px 0
-    }
-
-    img.logo {
-        width: 40%;
-        border-radius: 50%;
     }
 
     .container {
         padding: 16px
     }
 
-    .smallContainer {
-        padding: 10px 10px;
-        margin: auto;
-        width: fit-content;
-        align-self: center;
+    /* CSS specific for login page */
+    .login-div {
+        background-color: rgb(183, 214, 204);
+        width: 400 px;
+        padding: 25 px;
+        margin: 100 px;    
     }
 
-    
+    /* Center image */
+    .imgcontainer {
+        text-align: center;
+    } 
 
+    .smallContainerLogin {
+        padding: 10px 10px;
+        margin: auto;
+        width: 60%;
+        align-self: center;
+    }
 
 </style>
 
 
-<body>
-
-<div>
-    <form method="POST" action="">
+<div class="login-div">
+    <form method="POST" action="/login">
         {% csrf_token %}
-
-        <div class="imgcontainer">
-            <img src="{% static 'apiconnect/images/logo.png' %}" alt="FindMyClinicalTrial Logo">
+        {{form.as_p}}
+        
+        <div class="imgcontainer" style="height: 30; width: 30;">
+            <img src="{% static 'apiconnect/images/logo.png' %}" alt="FindMyClinicalTrial Logo" height="400">
         </div>
 
         <div class="container">
             <label for="email" style="font-family: sans-serif">Email:</label>
             <br>
-            <input type="text" name="email" placeholder="Enter Email" required/>
+            <input type="text" name="email" id="email" placeholder="Enter your email" required/>
 
             <br>
             <br>
         
-            <label for="username" style="font-family: sans-serif">Username:</label>
+            <label for="password" style="font-family: sans-serif">Password:</label>
             <br>
-            <input type="text" name="username" placeholder="Enter Username" required/>
+            <input type="text" name="password" id="password" placeholder="Enter your password" required/>
+
 
             <button type="submit">Login</button>
             <label>
@@ -95,7 +101,7 @@
 
         </div>
 
-        <div class="smallContainer" style="background-color: rgb(183, 214, 204);">
+        <div class="smallContainerLogin" style="background-color: rgb(226, 238, 248);">
 
             <p style="font-family: arial; text-align: center;">
                 New to FindMyClinicalTrial?
@@ -112,24 +118,123 @@
 
 {% else %}
 
-<div>
-    <form method="POST" action="">
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    
+    /* Full width input fields */
+    input[type=text] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    /* Style for all buttons */
+    button {
+        background-color: #babedd;
+        color: black;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    } 
+
+    button:hover {
+        opacity: 0.7;
+    }
+
+    .heading {
+        font-size: 26px;
+        position: relative;
+        text-align: center;
+    }
+
+    .container {
+        padding: 16px
+    }
+    
+    /* CSS specific for register page */
+    .register-div {
+        background-color: rgb(226, 238, 248);
+        width: 400 px;
+        padding: 25 px;
+        margin: 100 px;    
+    }
+
+    .smallContainerRegister {
+        padding: 10px 10px;
+        margin: auto;
+        width: fit-content;
+        align-self: center;
+    }
+</style>
+
+<div class="register-div">
+    <form method="POST" action="/register">
         {% csrf_token %}
         {{form.as_p}}
+
+        <div class="container">
+            <h1 class="heading">
+                Create your account
+            </h1>
+            <label for="email" style="font-family: sans-serif">Email:</label>
+            <br>
+            <input type="text" name="email" id="email" placeholder="Enter your email" required/>
+
+            <br>
+            <br>
+
+            <label for="first_name" style="font-family: sans-serif">First Name:</label>
+            <br>
+            <input type="text" name="first_name" id="first_name" placeholder="Enter your first name" required/>
+
+            <br>
+            <br>
+
+            <label for="last_name" style="font-family: sans-serif">Last Name:</label>
+            <br>
+            <input type="text" name="last_name" id="last_name" placeholder="Enter your last name" required/>
+
+            <br>
+            <br>
         
-        <button type="submit">Register</button>
+            <label for="password1" style="font-family: sans-serif">Password:</label>
+            <br>
+            <input type="text" name="password1" id="password1" placeholder="Create a password" required/>
+
+            <br>
+            <br>
+
+            <label for="password2" style="font-family: sans-serif">Confirm password:</label>
+            <br>
+            <input type="text" name="password2" id="password2" placeholder="Re-enter password" required/>
+
+            <button type="submit">Register</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember">Remember me
+            </label>
+
+        </div>
+        
+        <div class="smallContainerRegister" style="background-color: rgb(183, 214, 204);">
+            <p style="font-family: arial; text-align: center;">
+                Already have an account with us?
+                <a href="{% url 'login' %}"; style="font-family: arial;">Login</a>
+            </p>
+        </div>  
+
+        <br>
+        <br>
 
     </form>
 
-    <p style="font-family: arial; text-align: center;">
-        Already have an account with us?
-        <a href="{% url 'login' %}"; style="font-family: arial;">Login</a>
-    </p>
 </div>
 
-
-
-</body>
 
 </html>
 

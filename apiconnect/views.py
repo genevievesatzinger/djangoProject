@@ -7,43 +7,36 @@ from .parseXML import XmlDictConfig
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
+from .forms import RegisterForm, LoginForm
 # from django.contrib.auth.decorators import login_required
 
 
 
-def login_page(request):
+def login_user(request):
 
-    page = "login"
+    form = LoginForm()
+    context = {
+        "form": form
+    }
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.get('email').lower()
+            password = form.get('password')
+            try:
+                user = User.objects.get(email=email)
+                # SEND EMAIL CODE
+            except:
+                messages.error(request, "No such user exists.")
 
-    if request.user.is_authenticated:
-        return redirect('home')
+            user = authenticate(request, email=email, password=password)
 
-    if request.method == "POST":
-        # get email and username
-        email = request.POST.get('email')
-        username = request.POST.get('username').lower()
+            if user is not None:
+                login(request, user)
+                return redirect('/login')
+            else:
+                messages.error(request, "There is no account associated with this email.")
 
-        # check if user exists
-        try:
-            user = User.objects.get(username=username)
-        except:
-            # implement message from django
-            messages.error(request, "User does not exist.")
-            # add in message syntax to navbar to display message
-
-        # if user exists, check credentials
-        # get user object based on email and username
-        user = authenticate(request, email=email, username=username)
-
-        # log user in
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, "Email or username does not exist.")
-
-    context = {"page": page}
     return render(request, "apiconnect/login_register.html", context)
 
 def logout_user(request):
@@ -51,27 +44,26 @@ def logout_user(request):
     return redirect('home')
 
 def register_user(request):
-    form = UserCreationForm()
+    # Create a form instance of RegisterForm class
+    form = RegisterForm(request.POST or None)
+    context = {
+        "form": form
+    }
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            # Saving and freezing form to access user that is created
-            # Making sure name is clean (no accidental caps etc.)
             user = form.save(commit=False)
-            user.username = user.username.lower()
+            # Process valid form data
+            user.email = user.email.lower()
             user.save()
-            # Now that user is registered, login and redirect user
             login(request, user)
-            return redirect('home')
+            return redirect('/login')
         else:
-            messages.error(request, 'Error occurred while creating your account.')
-
-    return render(request, 'apiconnect/login_register.html', {'form':form})
+            messages.error(request, 'Error occurred during registration')
+    return render(request, "apiconnect/login_register.html", context)
 
 # Code for restricting pages before login
-# What pages do we want to restrict while the user is not logged in?
-# Or just certain pieces of a page? Like in the results page - "save"
 # Add this decorator before url function
 
 # @login_required(login_url='/login')

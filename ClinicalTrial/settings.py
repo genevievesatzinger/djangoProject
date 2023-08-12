@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apiconnect.apps.ApiconnectConfig'
+    'apiconnect'
 ]
 
 MIDDLEWARE = [
@@ -49,6 +48,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Registering custom user model
+AUTH_USER_MODEL = 'apiconnect.NewUser'
+
+AUTHENTICATION_BACKENDS = ['apiconnect.backends.EmailBackend']
 
 ROOT_URLCONF = 'ClinicalTrial.urls'
 
