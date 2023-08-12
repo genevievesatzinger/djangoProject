@@ -15,6 +15,6 @@ class RegisterForm(UserCreationForm):
         model = NewUser
         fields = ('email', 'first_name', 'last_name', 'password1', 'password2')
 
-class LoginForm(forms.Forms):
+class LoginForm(forms.Form):
     email = forms.EmailField(required=True)
     password = forms.CharField(required=True)
