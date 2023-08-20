@@ -1,0 +1,76 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+    <div>
+        {% if request.user.is_authenticated %}
+
+
+        {% endif %}
+
+        {% include "searchForm.html" %}
+
+        <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+            <div class="d-flex justify-content-center">
+                <button id="tableView" class="btn btn-primary  mx-1">Table View</button>
+                <button id="cardView" class="btn btn-primary">Card View</button>
+            </div>
+
+            <div>
+                <H4>Number of results found: {{totalCount}}</H4>              
+            </div>
+        </div>
+
+        {% for study in studies %}
+        <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+
+            <a href="{% url 'singleResult' study.protocolSection.identificationModule.nctId %}"><h5>{{study.protocolSection.identificationModule.briefTitle}}</h5></a>
+            
+            <p> <b>NCTID:</b> {{study.protocolSection.identificationModule.nctId}}</p>
+            <hr>
+            <small>Conditions:</small>
+            <b>
+            {% for condition in study.protocolSection.conditionsModule.conditions %}
+                {{condition}}
+                {% if not forloop.last %}
+                    ,
+                {% endif %} 
+            {% endfor %}
+            </b>
+        </div>
+        {% endfor %}
+
+        <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+            <div class="d-flex justify-content-center">
+                {% if pre_page %}
+                <form id="hiddenForm" method="POST" action="{% url 'cardResults' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="search_query" value="{{search_query}}">
+                    <input type="hidden" name="result_rnk" value="{{result_rnk}}">
+                    <input type="hidden" name="page_tokens" value="{{page_tokens}}">
+                    <input type="hidden" name="pre_token" value="1">
+                    <button id="preButton" class="btn btn-primary  mx-1">Previous</button>
+                </form>
+                {% endif %}
+                
+                {% if nextPageToken %}
+                <form id="hiddenForm" method="POST" action="{% url 'cardResults' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="search_query" value="{{search_query}}">
+                    <input type="hidden" name="result_rnk" value="{{result_rnk}}">
+                    <input type="hidden" name="page_tokens" value="{{page_tokens}}">
+                    <input type="hidden" name="next_token" value="{{nextPageToken}}">
+                    <button id="nextButton" class="btn btn-primary">Next</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+
+
+
+
+
+{% endblock %}

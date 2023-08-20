@@ -1,0 +1,73 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+    <div>
+
+        {% include "searchForm.html" %}
+
+        <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+            Brief Title: <br>
+            <b>{{protocolSection.identificationModule.briefTitle}}</b>
+            <hr>
+            Official Title: <br>
+            <b>{{protocolSection.identificationModule.officialTitle}}</b>
+            <hr>
+            NCTID: <br> 
+            <b>{{protocolSection.identificationModule.nctId}}</b>
+            <hr>
+            Conditions: <br>
+            <b>
+            {% for condition in protocolSection.conditionsModule.conditions %}
+                {{condition}}
+                {% if not forloop.last %}
+                    ,
+                {% endif %} 
+            {% endfor %}
+            </b>
+        </div>
+
+        {% if protocolSection.descriptionModule %}
+        <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+            {% if protocolSection.descriptionModule.briefSummary %}
+            <b>Brief Summary:</b> <br>
+            <p>{{protocolSection.descriptionModule.briefSummary}}</p>
+            <hr>
+            {% endif %}
+            {% if protocolSection.descriptionModule.detailedDescription %}
+            <b>Detailed Description:</b> <br>
+            <p>{{protocolSection.descriptionModule.detailedDescription}}</p>
+            <hr>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if protocolSection.contactsLocationsModule.locations %}
+        <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+            <h5>Locations:</h5> <hr>
+            {% for location in protocolSection.contactsLocationsModule.locations %}
+            <i class="fa-solid fa-location-dot"></i>
+                {% if location.city %}
+                {{location.city}} ,
+                {% endif %}
+
+                {% if location.state %}
+                {{location.state}} ,
+                {% endif %}
+
+                {% if location.country %}
+                {{location.country}}
+                {% endif %}
+                <br>
+            {% endfor %}
+            <hr>
+        </div>
+        {% endif %}
+
+    </div>
+
+
+
+
+{% endblock %}

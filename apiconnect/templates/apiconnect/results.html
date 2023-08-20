@@ -5,7 +5,14 @@
 <div class="container">
     <div>
 
+        {% include "searchForm.html" %}
+
         <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+            <div class="d-flex justify-content-center">
+                <button id="tableView" class="btn btn-primary  mx-1">Table View</button>
+                <button id="cardView" class="btn btn-primary">Card View</button>
+            </div>
+            
             <table class="table">
                 <thead>
                     <tr>
@@ -53,10 +60,6 @@
 
     </div>
 
-    <div>
-
-
-    </div>
 
 </div>
 

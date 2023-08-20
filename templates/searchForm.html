@@ -1,0 +1,82 @@
+
+
+<div class="accordion shadow p-5 mt-5 mb-5 bg-white rounded" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Search Form
+        </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <form id="searchForm" action="{% url 'cardResults' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="conditionSearch">Condition or Disease</label>
+                    <input type="text" class="form-control" id="conditionSearch" name="conditionSearch" aria-describedby="conditionHelp" placeholder="Enter Condition">
+                    <small id="conditionHelp" class="form-text text-muted">Enter the condition or desease in this box.</small>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label for="countryFilter">Country</label>
+                    <input type="text" class="form-control" id="countryFilter" name="countryFilter" aria-describedby="countryHelp" placeholder="Enter Country">
+                    <small id="countryHelp" class="form-text text-muted">Enter the country in this box.</small>
+                </div>
+                <div class="form-group">
+                    <label for="stateFilter">State</label>
+                    <input type="text" class="form-control" id="stateFilter" name="stateFilter" aria-describedby="stateHelp" placeholder="Enter State">
+                    <small istateHelp" class="form-text text-muted">Enter the state in this box.</small>
+                </div>
+                <div class="form-group">
+                    <label for="cityFilter">City</label>
+                    <input type="text" class="form-control" id="cityFilter" name="cityFilter" aria-describedby="cityHelp" placeholder="Enter City">
+                    <small id="cityHelp" class="form-text text-muted">Enter the city in this box.</small>
+                </div>
+                <div class="form-group">
+                    <label for="rangeFromCity">Range from city</label>
+                    <select class="form-control" id="rangeFromCity" name="rangeFromCity">
+                        <option value="5">5 miles</option>
+                        <option value="10">10 miles</option>
+                        <option value="50">50 miles</option>
+                        <option value="75">75 miles</option>
+                        <option value="100">100 miles</option>
+                    </select>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label for="ageRange">Age range</label>
+                    <select class="form-control" id="ageRange" name="ageRange">
+                        <option value="0-17">Child (Birth - 17)</option>
+                        <option value="18-64">Adult (18 - 64)</option>
+                        <option value="65-120">Older Adults (65+)</option>
+                    </select>
+                </div>
+                <hr>
+                <div class="form-group">
+                    Clinical Trial Phase
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="phase1" id="phase1" name="phase1">
+                        <label class="form-check-label" for="phase1">
+                            Early Phase 1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="phase2" id="phase2" name="phase2">
+                        <label class="form-check-label" for="phase2">
+                            Phase 2
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="phase3" id="phase3" name="phase3">
+                        <label class="form-check-label" for="phase3">
+                            Phase 3
+                        </label>
+                    </div>
+                </div>
+                <hr>
+                <button type="submit" class="btn btn-primary">Search</button>
+              </form>
+        </div>
+        </div>
+    </div>
+</div>
