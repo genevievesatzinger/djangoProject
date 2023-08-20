@@ -8,6 +8,46 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import Search
+
+@login_required
+def save_search(request):
+    if request.method == 'POST':
+        query = request.POST.get('query', '')
+        if query:
+            search = Search(owner=request.user, query=query)
+            search.save()
+            response_data = {'success': True, 'message': 'Search saved successfully!'}
+        else:
+            response_data = {'success': False, 'message': 'Query cannot be empty.'}
+        
+        return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+@login_required  
+def saved_searches(request):
+    searches_query = Search.objects.filter(owner=request.user).order_by('-saved')
+    searches = []
+    idx = 1
+    for item in searches_query:
+        cond_idx = item.query.find('cond=')
+        ampersand_idx = item.query.find('&filter')
+        search_q = item.query[cond_idx + 5: ampersand_idx] if ampersand_idx != -1 else ''
+        print(search_q)
+        item_dict = {
+            'idx' : idx,
+            'search': search_q,
+            'query': item.query,
+            'saved': item.saved,
+        }
+        searches.append(item_dict)
+        idx += 1
+
+    print(searches)
+    context = {'searches': searches}
+    return render(request, 'apiconnect/saved_searches.html', context)
 
 
 def home(request):
@@ -89,6 +129,7 @@ def cardResults(request):
             page_tokens = ''
             result = getData(url_query)
 
+        
         print(page_tokens)
         result.update({'result_rnk': result_rnk})
         result.update({'search_query': url_query})          

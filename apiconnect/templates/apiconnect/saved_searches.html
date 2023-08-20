@@ -1,0 +1,32 @@
+
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+<h2>Saved Searches</h2>
+</div>
+
+    {% for search in searches %}
+    <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+        <form id="hiddenForm{{ search.idx }}" method="POST" action="{% url 'cardResults' %}">
+            {% csrf_token %}
+            <input type="hidden" name="search_query" value="{{search.query}}">
+
+        </form>
+        
+        <p>Search Query:<a href="#" onclick="submitForm('{{ search.idx }}'); return false;"> {{ search.search }} </a> </p>
+        <p>Date Saved: {{ search.saved }}</p>
+    </div>
+    {% empty %}
+    <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+        No saved searches yet.
+    {% endfor %}
+    </div>
+
+    <script>
+        function submitForm(idx) {
+            var formId = "hiddenForm" + idx;
+            document.getElementById(formId).submit();
+        }
+    </script>
+{% endblock %}

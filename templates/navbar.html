@@ -14,18 +14,20 @@
       <ul id="main-navbar" class="nav navbar-nav nav-flex-icons ml-auto ms-auto flex-row">
 
         <li class="nav-item m-2 me-lg-0 ">
-            <a class="nav-link" href="/Home/">
+            <a class="nav-link" href="/">
               <span class="d-none d-lg-inline-block">Home</span>
               <i class="fas fa-fire-alt d-inline-block d-lg-none"></i>
             </a>
         </li>
+
+        {% if request.user.is_authenticated %}
         <li class="nav-item m-2 me-lg-0 ">
-          <a class="nav-link" href="/Learn/">
-            <span class="d-none d-lg-inline-block">Learn</span>
+          <a class="nav-link" href="{% url 'saved_searches' %}">
+            <span class="d-none d-lg-inline-block">Saved</span>
             <i class="fas fa-fire-alt d-inline-block d-lg-none"></i>
           </a>
         </li>
-
+        {% endif %}
         
 
         {% if request.user.is_authenticated %}
