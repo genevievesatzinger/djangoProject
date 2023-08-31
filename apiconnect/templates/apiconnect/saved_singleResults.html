@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+
+ 
+{% block content %}
+<div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+<h2>Saved Studies</h2>
+</div>
+
+    {% for study in singleResults %}
+    <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="singleResultsTable" style="overflow: auto;">
+        <form id="hiddenForm{{ search.idx }}" method="POST" action="{% url 'cardResults' %}">
+            {% csrf_token %}
+            <input type="hidden" name="search_query" value="{{search.query}}">
+
+        </form>
+       
+        <p>Study Id:<a href="#" onclick="submitForm('{{ study.idx }}'); return false;"> {{ study.nctId }} </a> </p>
+        <p>Date Saved: {{ study.save_date }}</p>
+    </div>
+    {% empty %}
+    <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+        No saved studies yet.
+    {% endfor %}
+    </div>
+
+    <script>
+        function submitForm(idx) {
+            var formId = "hiddenForm" + idx;
+            document.getElementById(formId).submit();
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+<form id="save-singleResult-form">
+    {% csrf_token %}
+    <input type="hidden" id="nctId" name="nctId" value="{{protocolSection.identificationModule.nctId}}">
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>
+<div id="message"></div>
+ 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('save-singleResult-form');
+    const messageDiv = document.getElementById('message');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+
+        fetch('{% url "save_singleResult" %}', {
+            method: 'POST',
+            body: formData,
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                messageDiv.innerHTML = '<p class="success">' + data.message + '</p>';
+            } else {
+                messageDiv.innerHTML = '<p class="error">' + data.message + '</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+});
+</script>

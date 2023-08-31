@@ -14,4 +14,8 @@ urlpatterns = [
     path('singleresult/<str:ntcId>/', views.singleResult, name='singleResult'),
     path('save_search/', views.save_search, name='save_search'),
     path('saved_searches/', views.saved_searches, name='saved_searches'),
+    path('save_singleResult/', views.save_singleResult, name='save_singleResult'),
+    path('saved_singleResults/', views.saved_singleResults, name='saved_singleResults'),
+    path('saved/', views.saved, name='saved'),
+    path('edit_profile/', views.saved, name='edit_profile'),
 ]

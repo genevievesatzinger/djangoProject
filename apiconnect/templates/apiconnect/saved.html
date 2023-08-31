@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+
+ 
+{% block content %}
+
+<div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+    <a class="nav-link" href="{% url 'saved_searches' %}">
+    <h2>Saved Searches</h2>
+    </a>
+</div>
+
+<div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+    <a class="nav-link" href="{% url 'saved_singleResults' %}">
+    <h2>Saved Studies</h2>
+    </a>
+</div>
+
+{% endblock %}

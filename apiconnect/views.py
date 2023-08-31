@@ -11,8 +11,63 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import Search
+from .models import Search, SingleResult
+from django.forms import forms
 
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        username = request.POST.get('username').lower()
+        newusername = request.POST.get('newusername').lower()
+
+        password = request.POST.get('password')
+        newpassword = request.POST.get('newpassword')
+
+    if User.objects.filter(username=newusername).exists():
+        raise forms.ValidationError(u'Username "%s" is not available.' % newusername)
+    
+    user = User.objects.get(username=username)
+    user.username = newusername
+    user.save()
+
+    return render(request, 'apiconnect/editProfile.html')
+
+@login_required
+def save_singleResult(request):
+    if request.method == 'POST':
+        nct = request.POST.get('nctId', '')
+        if nct:
+            study = SingleResult(owner=request.user, nctId=nct)
+            study.save()
+            response = {'success': True, 'message': 'Study saved successfully!'}
+        else:
+            response = {'success': False, 'message': 'Query cannot be empty.'}
+
+        return HttpResponse(json.dumps(response), content_type = 'application/json')
+
+@login_required
+def saved(request):  
+    return render(request, 'apiconnect/saved.html') 
+
+@login_required
+def saved_singleResults(request):
+    studies_query = SingleResult.objects.filter(owner=request.user).order_by('-save_date')
+    studies = []
+    idx = 1
+    # Make a lists of results; for each result, make a dictionary
+    for result in studies_query:
+        result_dict = {
+            'idx': idx,
+            'nctId': result.nctId,
+            'save_date': result.save_date
+        }
+        studies.append(result_dict)
+        idx += 1
+
+    print(studies)
+    context = {'singleResults': studies}
+    return render(request, 'apiconnect/saved_singleResults.html', context)
+        
 @login_required
 def save_search(request):
     if request.method == 'POST':
@@ -26,7 +81,7 @@ def save_search(request):
         
         return HttpResponse(json.dumps(response_data), content_type='application/json')
 
-@login_required  
+@login_required
 def saved_searches(request):
     searches_query = Search.objects.filter(owner=request.user).order_by('-saved')
     searches = []
