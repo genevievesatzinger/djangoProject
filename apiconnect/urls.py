@@ -17,5 +17,5 @@ urlpatterns = [
     path('save_singleResult/', views.save_singleResult, name='save_singleResult'),
     path('saved_singleResults/', views.saved_singleResults, name='saved_singleResults'),
     path('saved/', views.saved, name='saved'),
-    path('edit_profile/', views.saved, name='edit_profile'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
 ]

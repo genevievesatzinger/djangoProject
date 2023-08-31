@@ -7,7 +7,7 @@ from .parseXML import XmlDictConfig
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -17,20 +17,17 @@ from django.forms import forms
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        username = request.POST.get('username').lower()
-        newusername = request.POST.get('newusername').lower()
+        form = UserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully.')
+            return redirect('profile_edit')  # Redirect to the same page after saving changes
+        else:
+            messages.error(request, 'An error occurred while updating your profile.')
+    else:
+        form = UserChangeForm(instance=request.user)
 
-        password = request.POST.get('password')
-        newpassword = request.POST.get('newpassword')
-
-    if User.objects.filter(username=newusername).exists():
-        raise forms.ValidationError(u'Username "%s" is not available.' % newusername)
-    
-    user = User.objects.get(username=username)
-    user.username = newusername
-    user.save()
-
-    return render(request, 'apiconnect/editProfile.html')
+    return render(request, 'apiconnect/edit_profile.html', {'form': form})
 
 @login_required
 def save_singleResult(request):
