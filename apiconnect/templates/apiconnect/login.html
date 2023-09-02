@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="shadow p-5 mt-5 mb-5 bg-white rounded text-center">
+    <form method="POST" class="card" novalidate>
+        {% csrf_token %}
+        <h2class="text-center">Login</h2class=>
+        {{form.as_p}}
+        <input type="submit" value="Login"/>
+        <p class="text-center">Don't have an account? <a href="{%url 'register' %}">Register</a></p>
+        <p class="text-center">Forgot your password <a href="{%url 'password-reset' %}">Reset Password</a></p>
+    </form>
+</div>
+
+{% endblock content%}
