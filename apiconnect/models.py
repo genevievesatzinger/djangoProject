@@ -6,13 +6,24 @@ class Search(models.Model):
     query = models.TextField(null=False, blank=False)
     saved = models.DateField(auto_now=True)
 
-class Meta:
-        ordering = ['-saved']
+    class Meta:
+            ordering = ['-saved']
 
 class SingleResult(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     nctId = models.TextField(null=False, blank = False)
     save_date = models.DateField(auto_now=True)
 
-class Meta:
-    ordering = ['-save_date']
+    class Meta:
+        ordering = ['-save_date']
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(default='')
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
+    
+    def save(self, *args, **kwargs):
+        # save the profile first
+        super().save(*args, **kwargs)

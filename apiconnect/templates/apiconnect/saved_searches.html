@@ -8,7 +8,7 @@
 
     {% for search in searches %}
     <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
-        <form id="hiddenForm{{ search.idx }}" method="POST" action="{% url 'cardResults' %}">
+        <form id="hiddenForm{{ search.idx }}" method="POST" action="{% url 'card_results' %}">
             {% csrf_token %}
             <input type="hidden" name="search_query" value="{{search.query}}">
 

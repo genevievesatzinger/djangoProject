@@ -23,7 +23,7 @@
         {% for study in studies %}
         <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
 
-            <a href="{% url 'singleResult' study.protocolSection.identificationModule.nctId %}"><h5>{{study.protocolSection.identificationModule.briefTitle}}</h5></a>
+            <a href="{% url 'single_result' study.protocolSection.identificationModule.nctId %}"><h5>{{study.protocolSection.identificationModule.briefTitle}}</h5></a>
             
             <p> <b>NCTID:</b> {{study.protocolSection.identificationModule.nctId}}</p>
             <hr>
@@ -42,7 +42,7 @@
         <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
             <div class="d-flex justify-content-center">
                 {% if pre_page %}
-                <form id="hiddenForm" method="POST" action="{% url 'cardResults' %}">
+                <form id="hiddenForm" method="POST" action="{% url 'card_results' %}">
                     {% csrf_token %}
                     <input type="hidden" name="search_query" value="{{search_query}}">
                     <input type="hidden" name="result_rnk" value="{{result_rnk}}">
@@ -53,7 +53,7 @@
                 {% endif %}
                 
                 {% if nextPageToken %}
-                <form id="hiddenForm" method="POST" action="{% url 'cardResults' %}">
+                <form id="hiddenForm" method="POST" action="{% url 'card_results' %}">
                     {% csrf_token %}
                     <input type="hidden" name="search_query" value="{{search_query}}">
                     <input type="hidden" name="result_rnk" value="{{result_rnk}}">

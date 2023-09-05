@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const formData = new FormData(form);
 
-        fetch('{% url "save_singleResult" %}', {
+        fetch('{% url "save_single_result" %}', {
             method: 'POST',
             body: formData,
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },

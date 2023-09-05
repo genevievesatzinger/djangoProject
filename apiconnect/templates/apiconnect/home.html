@@ -4,7 +4,7 @@
 
 
     <div class="shadow p-5 mt-5 mb-5 bg-white rounded">
-        <form id="searchForm" action="{% url 'cardResults' %}" method="POST">
+        <form id="searchForm" action="{% url 'card_results' %}" method="POST">
             {% csrf_token %}
             <div class="form-group">
                 <label for="conditionSearch">Condition or Disease</label>

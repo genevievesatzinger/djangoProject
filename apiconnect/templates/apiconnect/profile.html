@@ -1,0 +1,24 @@
+{% extends 'main.html' %} 
+
+{% block content %}
+
+
+<div class="center">
+
+	    
+        <span>Username:  {{user.username}}</span>
+        <span>Email:  {{user.email}}</span>
+        {% if user.first_name %}
+        <span>First name:  {{user.first_name}}</span>
+        {% endif %}
+        {% if user.last_name %}
+        <span>Last name:  {{user.last_name}}</span>
+        {% endif %}
+
+		
+	    <a href="{%url 'update-profile' %}" class="btn btn-primary">Update Profile</a>
+	
+	</form>
+</div>
+
+{% endblock content %}

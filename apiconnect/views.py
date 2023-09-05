@@ -7,32 +7,24 @@ from .parseXML import XmlDictConfig
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Search, SingleResult
-from django.forms import forms
-from .forms import RegisterForm, LoginForm
-
+from .forms import RegisterForm, LoginForm, UserUpdateForm
 
 @login_required
-def edit_profile(request):
-    if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile updated successfully.')
-            return redirect('profile_edit')  # Redirect to the same page after saving changes
-        else:
-            messages.error(request, 'An error occurred while updating your profile.')
-    else:
-        form = UserChangeForm(instance=request.user)
-
-    return render(request, 'apiconnect/edit_profile.html', {'form': form})
+def my_profile(request):
+    user_form = UserUpdateForm(instance=request.user)
+        
+    context = {
+        'user_form': user_form
+    }
+        
+    return render(request, 'apiconnect/profile.html', context)
 
 @login_required
-def save_singleResult(request):
+def save_single_result(request):
     if request.method == 'POST':
         nct = request.POST.get('nctId', '')
         if nct:
@@ -49,7 +41,7 @@ def saved(request):
     return render(request, 'apiconnect/saved.html') 
 
 @login_required
-def saved_singleResults(request):
+def saved_single_results(request):
     studies_query = SingleResult.objects.filter(owner=request.user).order_by('-save_date')
     studies = []
     idx = 1
@@ -65,7 +57,7 @@ def saved_singleResults(request):
 
     print(studies)
     context = {'singleResults': studies}
-    return render(request, 'apiconnect/saved_singleResults.html', context)
+    return render(request, 'apiconnect/saved_single_results.html', context)
         
 @login_required
 def save_search(request):
@@ -107,7 +99,7 @@ def saved_searches(request):
 def home(request):
     return render(request, 'apiconnect/home.html')
 
-def loginPage(request):
+def login_page(request):
 
     if request.method == 'GET':
         form = LoginForm()
@@ -130,12 +122,12 @@ def loginPage(request):
         return render(request,'apiconnect/login.html',{'form': form})
 
 
-def logoutUser(request):
+def logout_user(request):
     logout(request)
     return redirect('home')
 
 
-def registerPage(request):
+def register_page(request):
     if request.method == 'GET':
         form = RegisterForm()
         return render(request, 'apiconnect/register.html', {'form': form})    
@@ -153,7 +145,7 @@ def registerPage(request):
             return render(request, 'apiconnect/register.html', {'form': form})
 
 
-def cardResults(request):
+def card_results(request):
 
     if request.method == 'POST':
         url_query = ''
@@ -169,17 +161,17 @@ def cardResults(request):
             pre_token = True if 'pre_token' in request.POST else False
             page_tokens = request.POST['page_tokens'] if 'page_tokens' in request.POST else ''
         else:
-            url_query = createSearch(request.POST)
+            url_query = create_search(request.POST)
 
         if next_token :
-            result = getData(url_query + '&pageToken=' + next_token)
+            result = get_data(url_query + '&pageToken=' + next_token)
             page_tokens += (',' if page_tokens else '') + next_token
         elif pre_token and (',' in page_tokens):
             page_tokens = page_tokens.rsplit(',', 1)[0] if page_tokens else ''
-            result = getData(url_query + '&pageToken=' + page_tokens.split(',')[-1])
+            result = get_data(url_query + '&pageToken=' + page_tokens.split(',')[-1])
         else:
             page_tokens = ''
-            result = getData(url_query)
+            result = get_data(url_query)
 
         
         print(page_tokens)
@@ -187,18 +179,18 @@ def cardResults(request):
         result.update({'search_query': url_query})          
         result.update({'page_tokens': page_tokens})
         if page_tokens :   result.update({'pre_page': 1})
-        return render(request, 'apiconnect/cardResults.html', result)
+        return render(request, 'apiconnect/card_results.html', result)
 
 
     return HttpResponse("Error!")
 
 
-def singleResult(request, ntcId):
+def single_result(request, ntcId):
     url_query = "https://clinicaltrials.gov/api/v2/studies/" + ntcId 
     fields = "NCTId,BriefTitle,OfficialTitle,Condition,BriefSummary,DetailedDescription,LocationCountry,LocationState,LocationCity"
     url_query += "?fields=" + urllib.parse.quote_plus(fields)
-    response_json = getData(url_query)
-    return render(request, 'apiconnect/singleResult.html', response_json)
+    response_json = get_data(url_query)
+    return render(request, 'apiconnect/single_result.html', response_json)
 
 def results(request):
 
@@ -209,9 +201,9 @@ def results(request):
             search_query = request.POST['search_query']
             result_rnk = int(request.POST['result_rnk'])
         except:
-            search_query = createSearch(request.POST)
-        url_query = createURL(search_query, result_rnk)    
-        response_xml = getData(url_query)
+            search_query = create_search(request.POST)
+        url_query = create_URL(search_query, result_rnk)    
+        response_xml = get_data(url_query)
         context = toDict(response_xml)
         context.update({'search_query': search_query})
         min_rnk = int(context['MinRank'])
@@ -233,7 +225,7 @@ def results(request):
     return render(request, 'apiconnect/results.html', context)
 
 
-def createSearch(reqForm):
+def create_search(reqForm):
     
     searchQ = "" # Reset searchQ
 
@@ -269,7 +261,7 @@ def createSearch(reqForm):
     return query
 
     
-def createURL(searchQ, result_rnk):
+def create_URL(searchQ, result_rnk):
     query = "https://clinicaltrials.gov/api/v2/studies?format=json&query.cond=" 
     query += urllib.parse.quote_plus(searchQ)
     query += "&fields=NCTId%2CBriefTitle%2CCondition%2CLocationCity%2CLocationState%2CLocationCountry"
@@ -278,7 +270,7 @@ def createURL(searchQ, result_rnk):
     return query
     
 
-def getData(url):
+def get_data(url):
     try:
         json_response = requests.get(url)
         json_response.raise_for_status()  # Raise an exception if the request was unsuccessful
@@ -296,6 +288,3 @@ def toDict(xml_content):
     xmldict = XmlDictConfig(root)
 
     return xmldict
-
-
-
