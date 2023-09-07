@@ -30,5 +30,5 @@ urlpatterns = [
     path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name='apiconnect/password_reset_confirm.html'),name='password_reset_confirm'),
     path('password-reset-complete/',PasswordResetCompleteView.as_view(template_name='apiconnect/password_reset_complete.html'),name='password_reset_complete'),
     path('my_profile/', views.my_profile, name='my_profile'),
-    path('updateprofile/', UpdateProfile.as_view(), name='update-profile'),
+    path('updateprofile/', views.update_profile, name='update-profile'),
 ]

@@ -2,23 +2,23 @@
 
 {% block content %}
 
-
-<div class="center">
-
-	    
-        <span>Username:  {{user.username}}</span>
-        <span>Email:  {{user.email}}</span>
+<div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+    <div class="center">
+        <p><strong>Username:</strong> {{user.username}}</p>
+        <p><strong>Email:</strong> {{user.email}}</p>
+    
         {% if user.first_name %}
-        <span>First name:  {{user.first_name}}</span>
+            <p><strong>First Name:</strong> {{user.first_name}}</p>
         {% endif %}
+    
         {% if user.last_name %}
-        <span>Last name:  {{user.last_name}}</span>
+        <p><strong>Last Name:</strong> {{user.last_name}}</p>
         {% endif %}
-
-		
-	    <a href="{%url 'update-profile' %}" class="btn btn-primary">Update Profile</a>
-	
-	</form>
+            
+        <a href="{%url 'update-profile' %}" class="btn btn-primary">Update Profile</a>
+        
+        </form>
+    </div>
 </div>
 
 {% endblock content %}
