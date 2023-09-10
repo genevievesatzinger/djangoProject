@@ -27,3 +27,12 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         # save the profile first
         super().save(*args, **kwargs)
+
+
+class Share_Search(models.Model):
+    query = models.TextField(null=False, blank=False)
+    saved = models.DateField(auto_now=True)
+
+class Share_Study(models.Model):
+    nctId = models.TextField(null=False, blank = False)
+    save_date = models.DateField(auto_now=True)

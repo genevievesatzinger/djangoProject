@@ -1,6 +1,6 @@
 
 
-    <form id="save-search-form">
+    <form id="save-search-form" class="mx-3">
         {% csrf_token %}
         <input type="hidden" id="query" name="query" value="{{search_query}}">
         <button class="btn btn-primary" type="submit">Save</button>
