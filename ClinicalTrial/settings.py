@@ -125,10 +125,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# EMAIL_HOST = 'smtp.office365.com'
-# EMAIL_HOST_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'info@findmyclinicaltrial.org'
-# EMAIL_HOST_PASSWORD = 'Lozach1234'
+EMAIL_HOST = 'smtp.mailersend.net'
+EMAIL_HOST_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'MS_5BWAP5@findmyclinicaltrial.org'
+EMAIL_HOST_PASSWORD = 'JYeRGCZr1WZUtHYi'
