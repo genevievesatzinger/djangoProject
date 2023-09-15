@@ -30,9 +30,13 @@ class Profile(models.Model):
 
 
 class Share_Search(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     query = models.TextField(null=False, blank=False)
-    saved = models.DateField(auto_now=True)
+    uid = models.TextField(null=False, blank=False)
+    save_date = models.DateField(auto_now=True)
 
 class Share_Study(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     nctId = models.TextField(null=False, blank = False)
+    uid = models.TextField(null=False, blank=False)
     save_date = models.DateField(auto_now=True)

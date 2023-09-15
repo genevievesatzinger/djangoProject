@@ -12,7 +12,7 @@
                 {% if request.user.is_authenticated %}
                         {% include "apiconnect/save_single_result.html" %}
                 {% endif %}
-                {% include "apiconnect/share_search.html" %}
+                {% include "apiconnect/share_study.html" %}
             </div>
             Brief Title: <br>
             <b>{{protocolSection.identificationModule.briefTitle}}</b>
