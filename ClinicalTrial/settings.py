@@ -127,8 +127,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# EMAIL_HOST = 'smtp.mailersend.net'
-# EMAIL_HOST_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'MS_5BWAP5@findmyclinicaltrial.org'
-# EMAIL_HOST_PASSWORD = 'JYeRGCZr1WZUtHYi'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailersend.net'
+EMAIL_HOST_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'MS_5BWAP5@findmyclinicaltrial.org'
+EMAIL_HOST_PASSWORD = 'JYeRGCZr1WZUtHYi'
+DEFAULT_FROM_EMAIL = "info@findmyclinicaltrial.org"
