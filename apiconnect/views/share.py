@@ -26,21 +26,34 @@ def share_search(request):
         email_to = request.POST.get('email', '')
         share_link = get_current_site(request).domain + "/show_shared_search/search-id=" + search_uid
         print("email_to")
-        email_title = "User [username] has shared a search with you on findmyclinicaltrial.org!"
-        email_message = "You're receiving this email because user [username] has shared their search with you on findmyclinicaltrial.org.\nClick the link below to view this search on our site!\n" + share_link +".\nThanks for using our Find My Clinical Trial!"
+        email_title = "User " + str(request.user) + " has shared a search with you on findmyclinicaltrial.org!"
+        email_message = "\nYou're receiving this email because user "
+        email_message +=  str(request.user) 
+        email_message += " has shared their search with you on findmyclinicaltrial.org!"
+        email_message += "\nClick the link below to view this search on our site!\n"
+        email_message += share_link
+        email_message += "\nThanks for using our Find My Clinical Trial!"
+        print(email_message)       
         send_share_email(email_title, email_to, email_message)
         
         return HttpResponse(json.dumps(response_data), content_type='application/json')
 
 
 def send_share_email(email_title, email_to, email_message):
+    from django.core.mail import get_connection
+    from django.core.mail.message import EmailMessage
+
+    connection = get_connection(use_tls=True, host='smtp.mailersend.net', port=587,username='MS_5BWAP5@findmyclinicaltrial.org', password='JYeRGCZr1WZUtHYi')
+    # EmailMessage('test', 'test', 'info@findmyclinicaltrial.org', [email_to], connection=connection).send()
     send_mail(
     email_title,
     email_message,
     "info@findmyclinicaltrial.org",
     [email_to],
     fail_silently=False,
-)
+    connection=connection
+    )
+
 
 def show_shared_search(request, search_uid):
     if request.method == 'GET':
