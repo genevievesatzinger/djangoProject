@@ -28,8 +28,8 @@ urlpatterns = [
     path('single_result/<str:ntcId>/', results.single_result, name='single_result'),
     path('save_search/', save.save_search, name='save_search'),
     path('saved_searches/', save.saved_searches, name='saved_searches'),
-    path('save_single_result/', save.save_single_result, name='save_single_result'),
-    path('saved_single_results/', save.saved_single_results, name='saved_single_results'),
+    path('save_study/', save.save_study, name='save_study'),
+    path('saved_studies/', save.saved_studies, name='saved_studies'),
     path('saved/', save.saved, name='saved'),
     path('password-reset/', PasswordResetView.as_view(template_name='apiconnect/password_reset.html'),name='password-reset'),
     path('password-reset/done/', PasswordResetDoneView.as_view(template_name='apiconnect/password_reset_done.html'),name='password_reset_done'),
@@ -39,5 +39,6 @@ urlpatterns = [
     path('updateprofile/', profile.update_profile, name='update-profile'),
     path('share_search/', share.share_search, name='share_search'),
     path('share_study/', share.share_study, name='share_study'),
-    path('show_shared_search/search-id=<str:search_uid>/', share.show_shared_search, name='show_shared_search'),
+    path('shared_search/search-id=<str:search_uid>/', share.shared_search, name='shared_search'),
+    path('shared_study/study-id=<str:study_uid>/', share.shared_study, name='shared_study'),
 ]

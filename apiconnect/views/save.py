@@ -1,16 +1,16 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from ..models import Search, SingleResult
+from ..models import Save_Search, Save_Study
 from django.http import HttpResponse
 import json
 
 
 @login_required
-def save_single_result(request):
+def save_study(request):
     if request.method == 'POST':
         nct = request.POST.get('nctId', '')
         if nct:
-            study = SingleResult(owner=request.user, nctId=nct)
+            study = Save_Study(owner=request.user, nctId=nct)
             study.save()
             response = {'success': True, 'message': 'Study saved successfully!'}
         else:
@@ -23,8 +23,8 @@ def saved(request):
     return render(request, 'apiconnect/saved.html') 
 
 @login_required
-def saved_single_results(request):
-    studies_query = SingleResult.objects.filter(owner=request.user).order_by('-save_date')
+def saved_studies(request):
+    studies_query = Save_Study.objects.filter(owner=request.user).order_by('-save_date')
     studies = []
     idx = 1
     # Make a lists of results; for each result, make a dictionary
@@ -39,14 +39,14 @@ def saved_single_results(request):
 
     print(studies)
     context = {'singleResults': studies}
-    return render(request, 'apiconnect/saved_single_results.html', context)
+    return render(request, 'apiconnect/saved_studies.html', context)
         
 @login_required
 def save_search(request):
     if request.method == 'POST':
         query = request.POST.get('query', '')
         if query:
-            search = Search(owner=request.user, query=query)
+            search = Save_Search(owner=request.user, query=query)
             search.save()
             response_data = {'success': True, 'message': 'Search saved successfully!'}
         else:
@@ -56,7 +56,7 @@ def save_search(request):
 
 @login_required
 def saved_searches(request):
-    searches_query = Search.objects.filter(owner=request.user).order_by('-saved')
+    searches_query = Save_Search.objects.filter(owner=request.user).order_by('-saved')
     searches = []
     idx = 1
     for item in searches_query:

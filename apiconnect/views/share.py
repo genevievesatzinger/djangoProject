@@ -6,10 +6,11 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 import json
 from django.contrib.sites.shortcuts import get_current_site
-from .results import get_data
+from .results import get_data, single_result
 import requests
+import urllib.parse
 
-from ..models import Search
+from ..models import Share_Search
 
 @login_required
 def share_search(request):
@@ -38,24 +39,7 @@ def share_search(request):
         
         return HttpResponse(json.dumps(response_data), content_type='application/json')
 
-
-def send_share_email(email_title, email_to, email_message):
-    from django.core.mail import get_connection
-    from django.core.mail.message import EmailMessage
-
-    connection = get_connection(use_tls=True, host='smtp.mailersend.net', port=587,username='MS_5BWAP5@findmyclinicaltrial.org', password='JYeRGCZr1WZUtHYi')
-    # EmailMessage('test', 'test', 'info@findmyclinicaltrial.org', [email_to], connection=connection).send()
-    send_mail(
-    email_title,
-    email_message,
-    "info@findmyclinicaltrial.org",
-    [email_to],
-    fail_silently=False,
-    connection=connection
-    )
-
-
-def show_shared_search(request, search_uid):
+def shared_search(request, search_uid):
     if request.method == 'GET':
         url_query = ''
         next_token = ''
@@ -98,5 +82,61 @@ def show_shared_search(request, search_uid):
 
 @login_required
 def share_study(request):
-    study_uid = str(uuid.uuid4())[:8]
-    return render(request, 'apiconnect/share_study.html')
+    if request.method == 'POST':
+        study_uid = str(uuid.uuid4())[:16]
+        study_nctID = request.POST.get('nctId', '')
+        if study_nctID:
+            study = Share_Study(owner=request.user, nctId=study_nctID, uid=study_uid)
+            study.save()
+            response_data = {'success': True, 'message': 'Study shared for test successfully!'}
+        else:
+            response_data = {'success': False, 'message': 'Query cannot be empty.'}
+
+        email_to = request.POST.get('email', '')
+        share_link = get_current_site(request).domain + "/shared_study/study-id=" + study_uid
+        email_title = "User " + str(request.user) + " has shared a study with you on findmyclinicaltrial.org!"
+        email_message = "\nYou're receiving this email because user "
+        email_message +=  str(request.user) 
+        email_message += " has shared a study with you on findmyclinicaltrial.org!"
+        email_message += "\nClick the link below to view this study on our site!\n"
+        email_message += share_link
+        email_message += "\nThanks for using our Find My Clinical Trial!"
+        print(email_message)       
+        send_share_email(email_title, email_to, email_message)
+        
+        return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+
+def shared_study(request, study_uid):
+    if study_uid:
+        study_query = Share_Study.objects.filter(owner=request.user, uid=study_uid).order_by('-save_date')
+        idx = 1
+        study_ntcId = ''
+        for result in study_query:
+            result_dict = {
+                'idx': idx,
+                'search_query': result.nctId,
+                'save_date': result.save_date
+            }
+            idx += 1
+            study_ntcId = result.nctId
+        #single_result(request, study_ntcId)
+        url_query = "https://clinicaltrials.gov/api/v2/studies/" + study_ntcId 
+        fields = "NCTId,BriefTitle,OfficialTitle,Condition,BriefSummary,DetailedDescription,LocationCountry,LocationState,LocationCity"
+        url_query += "?fields=" + urllib.parse.quote_plus(fields)
+        response_json = get_data(url_query)
+        return render(request, 'apiconnect/single_result.html', response_json)
+
+    return HttpResponse("Error!")
+
+
+def send_share_email(email_title, email_to, email_message):
+    send_mail(
+    email_title,
+    email_message,
+    "info@findmyclinicaltrial.org",
+    [email_to],
+    fail_silently=False
+    )
+
+    return

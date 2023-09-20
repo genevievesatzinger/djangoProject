@@ -14,16 +14,16 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form id="share-search-form">
+      <form id="share-study-form">
         <div class="modal-body">
           <label for="exampleInputEmail1" class="form-label">Recipient Email Address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="test@test.com">
+          <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="test@test.com">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           
             {% csrf_token %}
-            <input type="hidden" id="query" name="query" value="{{search_query}}">
+            <input type="hidden" id="nctId" name="nctId" value="{{protocolSection.identificationModule.nctId}}">
             <button class="btn btn-primary" type="submit">Share</button>
         </div>
     </form>
