@@ -45,7 +45,7 @@
                 {% if pre_page %}
                 <form id="hiddenForm" method="POST" action="{% url 'card_results' %}">
                     {% csrf_token %}
-                    <input type="hidden" name="search_query" value="{{search_query}}">
+                    <input type="hidden" name="search_dict" value="{{search_dict}}">
                     <input type="hidden" name="result_rnk" value="{{result_rnk}}">
                     <input type="hidden" name="page_tokens" value="{{page_tokens}}">
                     <input type="hidden" name="pre_token" value="1">
@@ -56,7 +56,7 @@
                 {% if nextPageToken %}
                 <form id="hiddenForm" method="POST" action="{% url 'card_results' %}">
                     {% csrf_token %}
-                    <input type="hidden" name="search_query" value="{{search_query}}">
+                    <input type="hidden" name="search_dict" value="{{search_dict}}">
                     <input type="hidden" name="result_rnk" value="{{result_rnk}}">
                     <input type="hidden" name="page_tokens" value="{{page_tokens}}">
                     <input type="hidden" name="next_token" value="{{nextPageToken}}">

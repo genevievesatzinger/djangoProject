@@ -14,7 +14,8 @@ def card_results(request):
         pre_token = False
         page_tokens = ''
         result_rnk = 1
-        if 'search_query' in request.POST:
+        if 'search_dict' in request.POST:
+            print()
             url_query = request.POST['search_query']
             result_rnk = int(request.POST['result_rnk']) if 'result_rnk' in request.POST else 1
             next_token = request.POST['next_token'] if 'next_token' in request.POST else ''
@@ -55,17 +56,17 @@ def single_result(request, ntcId):
 def search_results(request):
 
     if request.method == 'POST':
-        search_query = ''
+        search_dict = ''
         result_rnk = 1
         try:
-            search_query = request.POST['search_query']
+            search_dict = request.POST['search_dict']
             result_rnk = int(request.POST['result_rnk'])
         except:
-            search_query = create_search(request.POST)
-        url_query = create_URL(search_query, result_rnk)    
+            search_dict = create_search(request.POST)
+        url_query = create_URL(search_dict.search_query, result_rnk)    
         response_xml = get_data(url_query)
         context = toDict(response_xml)
-        context.update({'search_query': search_query})
+        context.update({'search_dict': search_dict})
         min_rnk = int(context['MinRank'])
         max_rnk = int(context['MaxRank'])
         num_studies = int(context['NStudiesFound'])
@@ -89,23 +90,25 @@ def create_search(reqForm):
     
     searchQ = "" # Reset searchQ
 
-    condition = reqForm['conditionSearch']
-    country = reqForm['countryFilter']
-    state = reqForm['stateFilter']
-    city = reqForm['cityFilter']
-    range = reqForm['rangeFromCity']
-    ageRange = reqForm['ageRange']
-    ageValues = ageRange.split("-");
+    search_dict = {
+        'condition': reqForm['conditionSearch'],
+        'country': reqForm['countryFilter'],
+        'state': reqForm['stateFilter'],
+        'city': reqForm['cityFilter'],
+        'range': reqForm['rangeFromCity'],
+        'ageRange': reqForm['ageRange'],       
+    }
     
-    searchQ += "&query.cond=" + urllib.parse.quote_plus(condition)
+    ageValues = search_dict['ageRange'].split("-")
+    searchQ += "&query.cond=" + urllib.parse.quote_plus(search_dict['condition'])
 
     locationQ = ''
-    if country or state or city:
-        locationQ += "AREA[LocationCountry]" + country if country else ""
-        locationQ += " AND " if (country and (state or city)) else ""
-        locationQ += "AREA[LocationState]" + state if state else ""
-        locationQ += " AND " if (state and city) else ""
-        locationQ += "AREA[LocationCity]" + city if (state and city) else ""
+    if search_dict['country'] or search_dict['state'] or search_dict['city']:
+        locationQ += "AREA[LocationCountry]" + search_dict['country'] if search_dict['country'] else ""
+        locationQ += " AND " if (search_dict['country'] and (search_dict['state'] or search_dict['city'])) else ""
+        locationQ += "AREA[LocationState]" + search_dict['state'] if search_dict['state'] else ""
+        locationQ += " AND " if (search_dict['state'] and search_dict['city']) else ""
+        locationQ += "AREA[LocationCity]" + search_dict['city'] if (search_dict['state'] and search_dict['city']) else ""
         searchQ += "&query.locn=" + urllib.parse.quote_plus(locationQ)
 
     # age search
@@ -118,7 +121,9 @@ def create_search(reqForm):
     query += searchQ
     query += '&fields=NCTId%2CBriefTitle%2CCondition&countTotal=true'
     
-    return query
+    search_dict.update({'search_query': query})
+
+    return search_dict
 
     
 def create_URL(searchQ, result_rnk):
