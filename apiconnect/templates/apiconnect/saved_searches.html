@@ -7,16 +7,24 @@
 </div>
 
     {% for search in searches %}
-    <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
-        <form id="hiddenForm{{ search.idx }}" method="POST" action="{% url 'card_results' %}">
-            {% csrf_token %}
-            <input type="hidden" name="search_query" value="{{search.query}}">
+    <a href="#" class="text-decoration-none" onclick="submitForm('{{ search.idx }}'); return false;">
+        <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+            <form id="hiddenForm{{ search.idx }}" method="POST" action="{% url 'card_results' %}">
+                {% csrf_token %}
+                <input type="hidden" name="search_dict" value="{{search.search_dict}}">
 
-        </form>
-        
-        <p>Search Query:<a href="#" onclick="submitForm('{{ search.idx }}'); return false;"> {{ search.search }} </a> </p>
-        <p>Date Saved: {{ search.saved }}</p>
-    </div>
+            </form>
+            
+            <p>Result#: {{ search.idx }}</p>
+            {% for key, value in search.search_dict.items %}
+            {% if key != 'search_query' and value != ''  %}
+
+            <p><strong>{{ key }}:</strong> {{ value }}</p>
+            {% endif %}
+            {% endfor %}
+            <p><strong>Date Saved:</strong> {{ search.saved }}</p>
+        </div>
+    </a>
     {% empty %}
     <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
         No saved searches yet.

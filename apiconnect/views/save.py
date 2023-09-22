@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from ..models import Save_Search, Save_Study
 from django.http import HttpResponse
 import json
+import ast
 
 
 @login_required
@@ -45,8 +46,9 @@ def saved_studies(request):
 def save_search(request):
     if request.method == 'POST':
         query = request.POST.get('query', '')
+        search_dict = request.POST.get('search_dict', '')
         if query:
-            search = Save_Search(owner=request.user, query=query)
+            search = Save_Search(owner=request.user, search_dict=search_dict, query=query)
             search.save()
             response_data = {'success': True, 'message': 'Search saved successfully!'}
         else:
@@ -60,19 +62,20 @@ def saved_searches(request):
     searches = []
     idx = 1
     for item in searches_query:
-        cond_idx = item.query.find('cond=')
-        ampersand_idx = item.query.find('&filter')
-        search_q = item.query[cond_idx + 5: ampersand_idx] if ampersand_idx != -1 else ''
-        print(search_q)
+        # cond_idx = item.query.find('cond=')
+        # ampersand_idx = item.query.find('&filter')
+        # search_q = item.query[cond_idx + 5: ampersand_idx] if ampersand_idx != -1 else ''
+        search_dict_post = item.search_dict
+        search_dict = ast.literal_eval(search_dict_post)
         item_dict = {
             'idx' : idx,
-            'search': search_q,
+            'search_dict': search_dict,
             'query': item.query,
             'saved': item.saved,
         }
         searches.append(item_dict)
+        print(item_dict['query'])
         idx += 1
 
-    print(searches)
     context = {'searches': searches}
     return render(request, 'apiconnect/saved_searches.html', context)

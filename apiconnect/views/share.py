@@ -25,7 +25,7 @@ def share_search(request):
             response_data = {'success': False, 'message': 'Query cannot be empty.'}
 
         email_to = request.POST.get('email', '')
-        share_link = get_current_site(request).domain + "/show_shared_search/search-id=" + search_uid
+        share_link = get_current_site(request).domain + "/shared_search/search-id=" + search_uid
         print("email_to")
         email_title = "User " + str(request.user) + " has shared a search with you on findmyclinicaltrial.org!"
         email_message = "\nYou're receiving this email because user "

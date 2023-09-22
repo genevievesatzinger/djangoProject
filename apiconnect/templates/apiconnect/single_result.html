@@ -2,11 +2,7 @@
 
 {% block content %}
 
-
     <div>
-
-        {% include "searchForm.html" %}
-
         <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
             <div class="d-flex justify-content-end">
                 {% if request.user.is_authenticated %}

@@ -9,7 +9,7 @@
         {% include "searchForm.html" %}
 
         <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
-            <div class="d-flex justify-content-end"">
+            <div class="d-flex justify-content-end">
                 {% if request.user.is_authenticated %}
                     {% include "apiconnect/save_search.html" %}
                 {% endif %}
@@ -17,7 +17,7 @@
             </div>
 
             <div>
-                <H4>Number of results found: {{totalCount}}</H4>              
+                <H4>Number of results found: {{search_dict.totalCount}}</H4>              
             </div>
         </div>
 

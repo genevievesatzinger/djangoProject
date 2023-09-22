@@ -4,41 +4,43 @@ from django.http import HttpResponse
 import urllib.parse
 from ..parseXML import XmlDictConfig
 import xml.etree.ElementTree as ET
+import ast
 
 def card_results(request):
 
     if request.method == 'POST':
-        url_query = ''
+        search_dict = ''
         result = ''
         next_token = ''
         pre_token = False
         page_tokens = ''
         result_rnk = 1
         if 'search_dict' in request.POST:
-            print()
-            url_query = request.POST['search_query']
+            search_dict_post = request.POST['search_dict']
+            search_dict = ast.literal_eval(search_dict_post)
             result_rnk = int(request.POST['result_rnk']) if 'result_rnk' in request.POST else 1
             next_token = request.POST['next_token'] if 'next_token' in request.POST else ''
             pre_token = True if 'pre_token' in request.POST else False
             page_tokens = request.POST['page_tokens'] if 'page_tokens' in request.POST else ''
         else:
-            url_query = create_search(request.POST)
+            search_dict = create_search(request.POST)
+
 
         if next_token :
-            result = get_data(url_query + '&pageToken=' + next_token)
+            result = get_data(search_dict['search_query'] + '&pageToken=' + next_token)
             page_tokens += (',' if page_tokens else '') + next_token
         elif pre_token and (',' in page_tokens):
             page_tokens = page_tokens.rsplit(',', 1)[0] if page_tokens else ''
-            result = get_data(url_query + '&pageToken=' + page_tokens.split(',')[-1])
+            result = get_data(search_dict['search_query'] + '&pageToken=' + page_tokens.split(',')[-1])
         else:
             page_tokens = ''
-            result = get_data(url_query)
+            result = get_data(search_dict['search_query'])
+            search_dict.update({'totalCount': result['totalCount']})
 
-        
-        print(page_tokens)
         result.update({'result_rnk': result_rnk})
-        result.update({'search_query': url_query})          
+        result.update({'search_dict': search_dict})          
         result.update({'page_tokens': page_tokens})
+        
         if page_tokens :   result.update({'pre_page': 1})
         return render(request, 'apiconnect/card_results.html', result)
 

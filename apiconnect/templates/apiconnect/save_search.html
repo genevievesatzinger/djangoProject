@@ -2,7 +2,8 @@
 
     <form id="save-search-form" class="mx-3">
         {% csrf_token %}
-        <input type="hidden" id="query" name="query" value="{{search_query}}">
+        <input type="hidden" id="query" name="search_dict" value="{{search_dict}}">
+        <input type="hidden" id="query" name="query" value="{{search_dict.search_query}}">
         <button class="btn btn-primary" type="submit">Save</button>
     </form>
     <div id="message"></div>
