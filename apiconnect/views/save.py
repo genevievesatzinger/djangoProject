@@ -10,8 +10,9 @@ import ast
 def save_study(request):
     if request.method == 'POST':
         nct = request.POST.get('nctId', '')
+        brief_title = request.POST.get('BriefTitle', '')
         if nct:
-            study = Save_Study(owner=request.user, nctId=nct)
+            study = Save_Study(owner=request.user, nctId=nct, title=brief_title)
             study.save()
             response = {'success': True, 'message': 'Study saved successfully!'}
         else:
@@ -33,6 +34,7 @@ def saved_studies(request):
         result_dict = {
             'idx': idx,
             'nctId': result.nctId,
+            'BriefTitle': result.title,
             'save_date': result.save_date
         }
         studies.append(result_dict)

@@ -8,13 +8,14 @@
 
     {% for study in singleResults %}
     <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="singleResultsTable" style="overflow: auto;">
-        <form id="hiddenForm{{ search.idx }}" method="POST" action="{% url 'card_results' %}">
+        <form id="hiddenForm{{ search.idx }}" method="GET" action="{% url 'single_result' study.nctId %}">
             {% csrf_token %}
-            <input type="hidden" name="search_query" value="{{search.query}}">
+            <input type="hidden" name="" value="{{ study.nctId }}">
 
         </form>
-       
-        <p>Study Id:<a href="#" onclick="submitForm('{{ study.idx }}'); return false;"> {{ study.nctId }} </a> </p>
+
+        <p>Study Title:<a href="#" onclick="submitForm('{{ study.idx }}'); return false;"> {{ study.BriefTitle }} </a> </p>
+        <p>Study Id: {{ study.nctId }} </p>
         <p>Date Saved: {{ study.save_date }}</p>
     </div>
     {% empty %}

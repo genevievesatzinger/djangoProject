@@ -13,6 +13,7 @@ class Save_Search(models.Model):
 class Save_Study(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     nctId = models.TextField(null=False, blank = False)
+    title = models.TextField(null=False, blank = False, default="")
     save_date = models.DateField(auto_now=True)
 
     class Meta:

@@ -1,6 +1,7 @@
 <form id="save-singleResult-form" class="mx-3">
     {% csrf_token %}
     <input type="hidden" id="nctId" name="nctId" value="{{protocolSection.identificationModule.nctId}}">
+    <input type="hidden" id="BriefTitle" name="BriefTitle" value="{{protocolSection.identificationModule.briefTitle}}">
     <button class="btn btn-primary" type="submit">Save</button>
 </form>
 <div id="message"></div>

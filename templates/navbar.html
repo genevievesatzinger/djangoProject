@@ -1,58 +1,64 @@
 {% load static %}
 
 
-<nav id="mdb-navbar" class="  navbar fixed-top navbar-expand-lg navbar-light bg-white shadow rounded" >
-    <div class="container-fluid">
+<nav id="mdb-navbar" class="  navbar fixed-top navbar-expand-lg navbar-light bg-white shadow rounded">
+  <div class="container-fluid">
 
 
-        <a href="{% url 'home' %}" class="header__logo text-decoration-none">
-            <img class="img-fluid" src="{% static 'apiconnect/images/logo.png' %}" style="width: 3em;" /> 
-            <span>FindMyClinicalTrial</span>
-        </a>
-   
-      <span id="dpl-navbar-new-right-buttons" class="navbar-nav ms-auto d-flex flex-row">
+    <a href="{% url 'home' %}" class="header__logo text-decoration-none">
+      <img class="img-fluid" src="{% static 'apiconnect/images/logo.png' %}" style="width: 3em;" />
+      <span>FindMyClinicalTrial</span>
+    </a>
+
+    <span id="dpl-navbar-new-right-buttons" class="navbar-nav ms-auto d-flex flex-row">
       <ul id="main-navbar" class="nav navbar-nav nav-flex-icons ml-auto ms-auto flex-row">
 
         <li class="nav-item m-2 me-lg-0 ">
-            <a class="nav-link" href="/">
-              <span class="d-none d-lg-inline-block">Home</span>
-              <i class="fas fa-fire-alt d-inline-block d-lg-none"></i>
-            </a>
+          <a class="nav-link" href="/">
+            <span class="d-none d-lg-inline-block">Home</span>
+            <i class="fas fa-fire-alt d-inline-block d-lg-none"></i>
+          </a>
         </li>
 
         {% if request.user.is_authenticated %}
         <li class="nav-item m-2 me-lg-0 ">
-          <a class="nav-link" href="{% url 'saved' %}">
-            <span class="d-none d-lg-inline-block">Saved</span>
-            <i class="fas fa-fire-alt d-inline-block d-lg-none"></i>
-          </a>
+          <div class="dropdown">
+            <a class="dropdown-toggle text-decoration-none" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Saved
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="{% url 'saved_searches' %}">Searches</a></li>
+              <div class="dropdown-divider"></div>
+              <li><a class="dropdown-item"  href="{% url 'saved_studies' %}">Studies</a></li>
+            </ul>
+          </div>
         </li>
         {% endif %}
-        
+
 
         {% if request.user.is_authenticated %}
         <a class="nav-link" href="{% url 'my_profile' %}">
-        <span class="m-3">{{request.user}}</span>
+          <span class="m-3">{{request.user}}</span>
         </a>
         <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
         {% else %}
         <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
         {% endif %}
 
-      
-    </div>
+
+  </div>
 </nav>
 <header class="header header--loggedIn">
-    <div class="container">
-        
-
-        <form  method="GET" action="{% url 'home' %}">
-            <label>
-                <input type="text" name="q" placeholder="Search Rooms..." />
-            </label>
-        </form>
+  <div class="container">
 
 
+    <form method="GET" action="{% url 'home' %}">
+      <label>
+        <input type="text" name="q" placeholder="Search Rooms..." />
+      </label>
+    </form>
 
-    </div>
+
+
+  </div>
 </header>
