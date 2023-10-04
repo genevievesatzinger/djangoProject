@@ -7,7 +7,7 @@
 </div>
 
     {% for search in searches %}
-    <a href="#" class="text-decoration-none" onclick="submitForm('{{ search.idx }}'); return false;">
+    <a href="#" class="saved_links" onclick="submitForm('{{ search.idx }}'); return false;">
         <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
             <form id="hiddenForm{{ search.idx }}" method="POST" action="{% url 'card_results' %}">
                 {% csrf_token %}

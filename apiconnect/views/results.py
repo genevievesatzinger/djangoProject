@@ -45,7 +45,7 @@ def card_results(request):
         return render(request, 'apiconnect/card_results.html', result)
 
 
-    return HttpResponse("Error!")
+    return render(request, 'apiconnect/home.html')
 
 
 def single_result(request, ntcId):

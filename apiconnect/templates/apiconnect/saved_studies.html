@@ -6,28 +6,18 @@
 <h2>Saved Studies</h2>
 </div>
 
+
     {% for study in singleResults %}
-    <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="singleResultsTable" style="overflow: auto;">
-        <form id="hiddenForm{{ search.idx }}" method="GET" action="{% url 'single_result' study.nctId %}">
-            {% csrf_token %}
-            <input type="hidden" name="" value="{{ study.nctId }}">
-
-        </form>
-
-        <p>Study Title:<a href="#" onclick="submitForm('{{ study.idx }}'); return false;"> {{ study.BriefTitle }} </a> </p>
-        <p>Study Id: {{ study.nctId }} </p>
-        <p>Date Saved: {{ study.save_date }}</p>
-    </div>
+    <a class="saved_links text-decorate-none" href="{% url 'single_result' study.nctId %}">
+        <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="singleResultsTable" style="overflow: auto;">
+            <p>Study Title: {{ study.BriefTitle }} </p>
+            <p>Study Id: {{ study.nctId }} </p>
+            <p>Date Saved: {{ study.save_date }}</p>
+        </div>
+    </a>
     {% empty %}
     <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
         No saved studies yet.
     {% endfor %}
     </div>
-
-    <script>
-        function submitForm(idx) {
-            var formId = "hiddenForm" + idx;
-            document.getElementById(formId).submit();
-        }
-    </script>
 {% endblock %}

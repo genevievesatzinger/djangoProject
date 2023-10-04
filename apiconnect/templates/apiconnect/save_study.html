@@ -2,36 +2,35 @@
     {% csrf_token %}
     <input type="hidden" id="nctId" name="nctId" value="{{protocolSection.identificationModule.nctId}}">
     <input type="hidden" id="BriefTitle" name="BriefTitle" value="{{protocolSection.identificationModule.briefTitle}}">
-    <button class="btn btn-primary" type="submit">Save</button>
+    <i id="submitSave" class="fa-regular fa-bookmark"></i>
 </form>
 <div id="message"></div>
  
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.getElementById('submitSave').addEventListener('click', function() {
     const form = document.getElementById('save-singleResult-form');
     const messageDiv = document.getElementById('message');
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        const formData = new FormData(form);
+    const formData = new FormData(form);
 
-        fetch('{% url "save_study" %}', {
-            method: 'POST',
-            body: formData,
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                messageDiv.innerHTML = '<p class="success">' + data.message + '</p>';
-            } else {
-                messageDiv.innerHTML = '<p class="error">' + data.message + '</p>';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+    fetch('{% url "save_study" %}', {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('submitSave').classList.remove('fa-regular');
+            document.getElementById('submitSave').classList.add('fa-solid');
+        } else {
+            messageDiv.innerHTML = '<p class="error">' + data.message + '</p>';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
 });
 </script>
