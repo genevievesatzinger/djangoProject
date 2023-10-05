@@ -33,7 +33,7 @@ def share_search(request):
         email_message += " has shared their search with you on findmyclinicaltrial.org!"
         email_message += "\nClick the link below to view this search on our site!\n"
         email_message += share_link
-        email_message += "\nThanks for using our Find My Clinical Trial!"
+        email_message += "\nThanks for using Find My Clinical Trial!"
         print(email_message)       
         send_share_email(email_title, email_to, email_message)
         
