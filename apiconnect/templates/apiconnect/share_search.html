@@ -2,7 +2,6 @@
 
 <i id="share_study_icon" class="fa-solid fa-share" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
 </i>
-<div id="message"></div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -20,9 +19,10 @@
           <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="test@test.com">
         </div>
         <div class="modal-footer">
+          <div id="message"></div>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>      
             <input type="hidden" id="query" name="query" value="{{search_dict.search_query}}">
-            <button class="btn btn-primary" type="submit">Share</button>
+            <button  id="share_btn" class="btn btn-primary" type="submit">Share</button>
         </div>
       </form>
     </div>
@@ -34,6 +34,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 const form = document.getElementById('share-search_form');
 const messageDiv = document.getElementById('message');
+const shareButton = document.getElementById('share_btn');
 
 form.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -49,6 +50,7 @@ form.addEventListener('submit', function(event) {
     .then(data => {
         if (data.success) {
             messageDiv.innerHTML = '<p class="success">' + data.message + '</p>';
+            shareButton.style.display = "none"
         } else {
             messageDiv.innerHTML = '<p class="error">' + data.message + '</p>';
         }

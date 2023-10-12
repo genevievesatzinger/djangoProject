@@ -2,7 +2,6 @@
 
 {% block content %}
 
-
     <div class="shadow p-5 mt-5 mb-5 bg-white rounded">
         <form id="searchForm" action="{% url 'card_results' %}" method="POST">
             {% csrf_token %}
@@ -16,7 +15,7 @@
             <div class="form-group">
                 <label for="stateFilter">State</label>
                 <input type="text" class="form-control" id="stateFilter" name="stateFilter" aria-describedby="stateHelp" placeholder="Enter State">
-                <small istateHelp" class="form-text text-muted">Enter the state in this box.</small>
+                <small istateHelp class="form-text text-muted">Enter the state in this box.</small>
             </div>
             <hr>
             <div class="accordion" id="section2">
@@ -38,7 +37,7 @@
                             <input type="text" class="form-control" id="cityFilter" name="cityFilter" aria-describedby="cityHelp" placeholder="Enter City">
                             <small id="cityHelp" class="form-text text-muted">Enter the city in this box.</small>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="rangeFromCity">Range from city</label>
                             <select class="form-control" id="rangeFromCity" name="rangeFromCity">
                                 <option value="5">5 miles</option>
@@ -47,7 +46,7 @@
                                 <option value="75">75 miles</option>
                                 <option value="100">100 miles</option>
                             </select>
-                        </div>
+                        </div> -->
                         <hr>
                         <div class="form-group">
                             <label for="ageRange">Age range</label>
@@ -86,6 +85,5 @@
             <button type="submit" class="btn btn-primary">Search</button>
           </form>
     </div>
-
 
 {% endblock %}

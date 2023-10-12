@@ -50,7 +50,7 @@ def card_results(request):
 
 def single_result(request, ntcId):
     url_query = "https://clinicaltrials.gov/api/v2/studies/" + ntcId 
-    fields = "NCTId,BriefTitle,OfficialTitle,Condition,BriefSummary,DetailedDescription,LocationCountry,LocationState,LocationCity"
+    fields = "NCTId,BriefTitle,OfficialTitle,Condition,BriefSummary,DetailedDescription,LocationCountry,LocationState,LocationCity,CentralContact"
     url_query += "?fields=" + urllib.parse.quote_plus(fields)
     response_json = get_data(url_query)
     return render(request, 'apiconnect/single_result.html', response_json)
@@ -97,7 +97,7 @@ def create_search(reqForm):
         'country': reqForm['countryFilter'],
         'state': reqForm['stateFilter'],
         'city': reqForm['cityFilter'],
-        'range': reqForm['rangeFromCity'],
+        # 'range': reqForm['rangeFromCity'],
         'ageRange': reqForm['ageRange'],       
     }
     

@@ -9,6 +9,9 @@ from django.contrib.sites.shortcuts import get_current_site
 from .results import get_data, single_result
 import requests
 import urllib.parse
+import logging
+
+logger = logging.getLogger(__name__)
 
 from ..models import Share_Search
 
@@ -20,7 +23,7 @@ def share_search(request):
         if query:
             search = Share_Search(owner=request.user, query=query, uid=search_uid)
             search.save()
-            response_data = {'success': True, 'message': 'Search shared for test successfully!'}
+            response_data = {'success': True, 'message': 'Search shared successfully!'}
         else:
             response_data = {'success': False, 'message': 'Query cannot be empty.'}
 
@@ -88,7 +91,7 @@ def share_study(request):
         if study_nctID:
             study = Share_Study(owner=request.user, nctId=study_nctID, uid=study_uid)
             study.save()
-            response_data = {'success': True, 'message': 'Study shared for test successfully!'}
+            response_data = {'success': True, 'message': 'Study shared successfully!'}
         else:
             response_data = {'success': False, 'message': 'Query cannot be empty.'}
 
@@ -131,6 +134,7 @@ def shared_study(request, study_uid):
 
 
 def send_share_email(email_title, email_to, email_message):
+    logger.error("Sending Email!")
     send_mail(
     email_title,
     email_message,
