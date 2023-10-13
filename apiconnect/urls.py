@@ -19,7 +19,8 @@ from django.contrib.auth.views import (
 )
 
 urlpatterns = [
-    path('', main.home, name='home'),
+    path('home/', main.home, name='home'),
+    path('', main.preloader, name='preloader'),
     path('login/', authentication.login_page, name="login"),
     path('logout/', authentication.logout_user, name="logout"),
     path('register/', authentication.register_page, name="register"),

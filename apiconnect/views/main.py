@@ -4,3 +4,6 @@ from django.http import HttpResponse
 
 def home(request):
     return render(request, 'apiconnect/home.html')
+
+def preloader(request):
+    return render(request, 'apiconnect/preloader.html')
