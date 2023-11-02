@@ -10,3 +10,4 @@ def preloader(request):
 
 def clinical_trial_info(request):
     return render(request, 'apiconnect/clinical_trial_info.html')
+
