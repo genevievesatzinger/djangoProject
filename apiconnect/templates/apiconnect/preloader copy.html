@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'apiconnect/css/style.css' %}">
+    <title>FindMyClinicalTrial</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Poiret+One);
+
+        .loadFont {
+            font-family: 'Poiret One', cursive;
+            font-size: xx-large;
+            font-weight: 900;
+        }
+
+        .center-align {
+            text-align: center;
+        }
+
+        /* Additional styles for preloader */
+        .preloader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #F24B5C;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+        button {
+            background-color: #F24B5C;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: none;
+            font-size: 16px;
+            margin: 20px 0;
+            transition: all 0.5s ease-in-out;
+            cursor: pointer;
+            border-radius: 25px;
+            width: 150px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: large;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid #F24B5C;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="shadow p-5 m-5 bg-white rounded center-align">
+        <img class="img-fluid center-align" src="{% static 'apiconnect/images/logo.png' %}" style="width: 20em;" />
+        <h6 class="loadFont center-align animated bounceInLeft" id="side1">Find Your Clinical Trials <span id="dot2">...</span></h6>
+        
+        <div id="preloader" class="preloader">
+            <div class="loader"></div>
+        </div>
+        <button id="myButton" class="center-align" onclick="goHome()">Let's Find</button>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            var preloader = document.getElementById("preloader");
+            var button = document.getElementById("myButton");
+            
+            setTimeout(function() {
+                preloader.style.display = 'none';
+                button.style.display = 'block';
+            }, 3000); // hiding preloader and displaying button after 3000ms
+        });
+
+        function goHome() {
+            window.location.href = "{% url 'home' %}";
+        }
+    </script>
+</body>
+
+</html>

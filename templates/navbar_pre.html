@@ -19,6 +19,24 @@
           </a>
         </li>
 
+        <li class="nav-item m-2 me-lg-0 ">
+          <a class="dropdown-toggle text-decoration-none" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            About
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="{% url 'our_purpose' %}">Our Purpose</a></li>
+            <div class="dropdown-divider"></div>
+            <li><a class="dropdown-item"  href="{% url 'clinical_trials' %}">Clinical Trial Info</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item m-2 me-lg-0 ">
+          <a class="nav-link" href="findmyclinicaltrial.org">
+            <span class="d-none d-lg-inline-block">Contact Us</span>
+            <i class="fas fa-fire-alt d-inline-block d-lg-none"></i>
+          </a>
+        </li>
+
         {% if request.user.is_authenticated %}
         <li class="nav-item m-2 me-lg-0 ">
           <div class="dropdown">

@@ -4,9 +4,9 @@
   <div class="container-fluid">
 
     <a href="{% url 'home' %}" class="header__logo text-decoration-none">
-      <img class="img-fluid" src="{% static 'apiconnect/images/logo.png' %}" style="width: 9em;" />
-      <!-- <span>FindMyClinicalTrial</span> -->
+      <img class="img-fluid" src="{% static 'apiconnect/images/logo.png' %}" style="width: 12em;" />
     </a>
+    <span style="font-family: cursive;">Beta Version</span>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,11 +15,33 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-        <li class="nav-item m-2 me-lg-5">
-          <a class="nav-link" href="/">
+        <li class="nav-item m-2 me-lg-2">
+          <a class="nav-link" href="{% url 'home' %}">
             <span class="d-lg-inline-block">Home</span>
           </a>
         </li>
+
+        <li class="nav-item m-2 me-lg-0">
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle text-decoration-none" id="dropdownMenuButton0" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <span class="d-lg-inline-block">About</span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton0">
+              <li><a class="dropdown-item" href="https://findmyclinicaltrial.org">Our Purpose</a></li>
+              <div class="dropdown-divider"></div>
+              <li><a class="dropdown-item" href="{% url 'clinical_trial_info' %}">Clinical Trial Info</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item m-2 me-lg-0 ">
+          <a class="nav-link" href="https://findmyclinicaltrial.org">
+            <span class="d-none d-lg-inline-block">Contact Us</span>
+            <i class="fas fa-fire-alt d-inline-block d-lg-none"></i>
+          </a>
+        </li>
+
 
         {% if request.user.is_authenticated %}
         <li class="nav-item m-2 me-lg-0">
@@ -41,11 +63,11 @@
           </a>
         </li>
         <li class="nav-item m-2 me-lg-0">
-          <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+          <a class="btn btn-trial" href="{% url 'logout' %}">Logout</a>
         </li>
         {% else %}
         <li class="nav-item m-2 me-lg-0">
-          <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+          <a class="btn btn-trial" href="{% url 'login' %}">Login</a>
         </li>
         {% endif %}
       </ul>
