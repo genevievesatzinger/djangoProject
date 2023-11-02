@@ -19,7 +19,8 @@ from django.contrib.auth.views import (
 )
 
 urlpatterns = [
-    path('', main.home, name='home'),
+    path('home/', main.home, name='home'),
+    path('', main.preloader, name='preloader'),
     path('login/', authentication.login_page, name="login"),
     path('logout/', authentication.logout_user, name="logout"),
     path('register/', authentication.register_page, name="register"),
@@ -41,4 +42,5 @@ urlpatterns = [
     path('share_study/', share.share_study, name='share_study'),
     path('shared_search/search-id=<str:search_uid>/', share.shared_search, name='shared_search'),
     path('shared_study/study-id=<str:study_uid>/', share.shared_study, name='shared_study'),
+    path('clinical_trial_info/', main.clinical_trial_info, name='clinical_trial_info'),
 ]

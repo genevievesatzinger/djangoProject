@@ -22,5 +22,10 @@
 }
 
 .main_background {
-    background-color: #F24B5C;
+    background-color: #f24b5c7a;
+}
+
+.btn .btn-trial {
+    background-color: #1f497d;
+    color: #fff;
 }
