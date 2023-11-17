@@ -9,6 +9,7 @@ from .views import results
 from .views import save
 from .views import profile
 from .views import share
+from .users.views import register
 
 
 from django.contrib.auth.views import (
@@ -43,4 +44,5 @@ urlpatterns = [
     path('shared_search/search-id=<str:search_uid>/', share.shared_search, name='shared_search'),
     path('shared_study/study-id=<str:study_uid>/', share.shared_study, name='shared_study'),
     path('clinical_trial_info/', main.clinical_trial_info, name='clinical_trial_info'),
+    path('register_hospital/', register.register_hospital, name='register_hospital'),
 ]

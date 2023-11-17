@@ -24,13 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#s@#xcg1y8g=+8cilt^q=d(j&$64km17h45l4=ysy#9gw+7irt'
 
 # SSL Certificate forcing
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = False
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['tool.findmyclinicaltrial.org', 'www.tool.findmyclinicaltrial.org']
+ALLOWED_HOSTS = ['tool.findmyclinicaltrial.org', 'www.tool.findmyclinicaltrial.org', '127.0.0.1']
 
 
 # Application definition
@@ -62,6 +62,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'templates',
+            BASE_DIR / 'apiconnect/users/templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -91,6 +92,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'apiconnect.BaseUser'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -147,23 +149,23 @@ EMAIL_USE_TLS = False
 # EMAIL_HOST_PASSWORD = 'JYeRGCZr1WZUtHYi'
 
 
-# Configure Logging
+# # Configure Logging
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': '/home/bywrt448qu9d/logs/django.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'INFO',
+#             'class': 'logging.FileHandler',
+#             'filename': '/home/bywrt448qu9d/logs/django.log',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#     },
+# }

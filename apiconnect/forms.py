@@ -6,7 +6,8 @@ class LoginForm(forms.Form):
     username = forms.CharField(max_length=65)
     password = forms.CharField(max_length=65, widget=forms.PasswordInput)
     
-
+# Create register forms for each user profile type
+# First one is general, can delete later
 class RegisterForm(UserCreationForm):
     username = forms.CharField(max_length=65, required=True)
     email = forms.CharField(max_length=65, required=True)
@@ -32,10 +33,3 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
-
-# class ProfileUpdateForm(forms.ModelForm):
-#     bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
-
-#     class Meta:
-#         model = Profile
-#         fields = ['bio']
