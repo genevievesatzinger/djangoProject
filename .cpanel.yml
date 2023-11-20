@@ -1,0 +1,11 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/bywrt448qu9d/fmct/
+    - export STATICPATH=/home/bywrt448qu9d/public_html/
+    - /bin/cp -R apiconnect $DEPLOYPATH
+    - /bin/cp -R ClinicalTrial $DEPLOYPATH
+    - /bin/cp -R templates $DEPLOYPATH
+    - /bin/cp db.dqlite3 $DEPLOYPATH
+    - /bin/cp passenger_wsgi $DEPLOYPATH
+    - /bin/cp -R apiconnect/static $STATICPATH
