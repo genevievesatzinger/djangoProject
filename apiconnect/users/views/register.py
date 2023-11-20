@@ -1,25 +1,46 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from ..forms import HosptialRegisterForm
-from ..models import HospitalProfile
+from ..forms import HospitalRegistrationForm, DoctorRegistrationForm, PatientRegistrationForm, ResearchSiteRegistrationForm
+
 
 def register_hospital(request):
     if request.method == 'POST':
-        form = HosptialRegisterForm(request.POST)
+        form = HospitalRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            # Optionally, add first name and last name
-            user.first_name = form.cleaned_data.get('first_name')
-            user.last_name = form.cleaned_data.get('last_name')
-            user.save()
-
-            # Create an HospitalProfile for this user
-            HospitalProfile.objects.create(user=user)
-
-            # Log the user in and redirect them to a different page
-            login(request, user)
-            return redirect('home')  # Replace 'home' with your desired redirect URL
+            form.save()  # This saves the user with the hashed password
+            return redirect('login')  # Redirect to login after successful registration
     else:
-        form = HosptialRegisterForm()
+        form = HospitalRegistrationForm()
 
     return render(request, 'register_hospital.html', {'form': form})
+
+
+def register_doctor(request):
+    if request.method == 'POST':
+        form = DoctorRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()  # This saves the user with the hashed password
+            return redirect('login')  # Redirect to login after successful registration
+    else:
+        form = DoctorRegistrationForm()
+    return render(request, 'register_doctor.html', {'form': form})
+
+def register_patient(request):
+    if request.method == 'POST':
+        form = PatientRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()  # This saves the user with the hashed password
+            return redirect('login')  # Redirect to login after successful registration
+    else:
+        form = PatientRegistrationForm()
+    return render(request, 'register_patient.html', {'form': form})
+
+def register_research_site(request):
+    if request.method == 'POST':
+        form = ResearchSiteRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()  # This saves the user with the hashed password
+            return redirect('login')  # Redirect to login after successful registration
+    else:
+        form = ResearchSiteRegistrationForm()
+    return render(request, 'register_research_site.html', {'form': form})
+
