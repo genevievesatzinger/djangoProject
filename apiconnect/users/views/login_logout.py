@@ -1,11 +1,16 @@
 from django.contrib.auth.views import LoginView
-from ..forms import HospitalLoginForm, DoctorLoginForm, PatientLoginForm, ResearchSiteLoginForm
+from ..forms import AdminUserForm, HealthCenterLoginForm, DoctorLoginForm, PatientLoginForm, ResearchSiteLoginForm
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from django.contrib.auth.forms import AuthenticationForm
 
-class login_hospital(LoginView):
-    form_class = HospitalLoginForm
-    template_name = 'login_hospital.html'
+class login_admin(LoginView):   
+    form_class = AuthenticationForm
+    template_name = 'login_admin.html'
+
+class login_health_center(LoginView):   
+    form_class = HealthCenterLoginForm
+    template_name = 'login_health_center.html'
 
 class login_doctor(LoginView):
     form_class = DoctorLoginForm

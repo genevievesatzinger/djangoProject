@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect
-from ..forms import HospitalProfileForm, DoctorProfileForm, PatientProfileForm, ResearchSiteProfileForm
+from ..forms import HealthCenterProfileForm, DoctorProfileForm, PatientProfileForm, ResearchSiteProfileForm
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def edit_hospital_profile(request):
+def edit_health_center_profile(request):
     if request.method == 'POST':
-        form = HospitalProfileForm(request.POST, instance=request.user)
+        form = HealthCenterProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('profile_view')  # Redirect to the profile view page
     else:
-        form = HospitalProfileForm(instance=request.user)
-    return render(request, 'profile/edit_hospital_profile.html', {'form': form})
+        form = HealthCenterProfileForm(instance=request.user)
+    return render(request, 'profile/edit_health_center_profile.html', {'form': form})
 
 @login_required
 def edit_doctor_profile(request):

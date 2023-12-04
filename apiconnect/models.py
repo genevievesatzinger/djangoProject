@@ -1,8 +1,9 @@
-from django.db import models
-from django.contrib.auth.models import User
 
+from django.db import models
+from .users.models import *
+    
 class Save_Search(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(BaseUser, on_delete=models.CASCADE, null=True)
     search_dict = models.TextField(null=False, blank=False, default="")
     query = models.TextField(null=False, blank=False)
     saved = models.DateField(auto_now=True)
@@ -11,7 +12,7 @@ class Save_Search(models.Model):
             ordering = ['-saved']
 
 class Save_Study(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(BaseUser, on_delete=models.CASCADE, null=True)
     nctId = models.TextField(null=False, blank = False)
     title = models.TextField(null=False, blank = False, default="")
     save_date = models.DateField(auto_now=True)
@@ -20,7 +21,7 @@ class Save_Study(models.Model):
         ordering = ['-save_date']
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(BaseUser, on_delete=models.CASCADE)
     bio = models.TextField(default='')
 
     def __str__(self):
@@ -32,13 +33,13 @@ class Profile(models.Model):
 
 
 class Share_Search(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(BaseUser, on_delete=models.CASCADE, null=True)
     query = models.TextField(null=False, blank=False)
     uid = models.TextField(null=False, blank=False)
     save_date = models.DateField(auto_now=True)
 
 class Share_Study(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(BaseUser, on_delete=models.CASCADE, null=True)
     nctId = models.TextField(null=False, blank = False)
     uid = models.TextField(null=False, blank=False)
     save_date = models.DateField(auto_now=True)

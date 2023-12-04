@@ -1,16 +1,37 @@
 from django import forms
-from .models import HospitalUser, DoctorUser, PatientUser, ResearchSiteUser
+from .models import AdminUser, HealthCenterUser, DoctorUser, PatientUser, ResearchSiteUser
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 
-# Start of Hospital Forms
+# Start of Admin Forms
 
-class HospitalRegistrationForm(UserCreationForm):
+class AdminUserForm(UserCreationForm):
     password2 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput)
 
     class Meta:
-        model = HospitalUser
-        fields = ['username', 'email', 'password1', 'password2',  'hospital_name', 'phone_number', 'address']
+        model = AdminUser
+        fields = ['username', 'email', 'password1', 'password2']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', "Passwords don't match")
+
+        return cleaned_data
+    
+# End of Admin Forms
+
+# Start of Health Center Forms
+
+class HealthCenterRegistrationForm(UserCreationForm):
+    password2 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput)
+
+    class Meta:
+        model = HealthCenterUser
+        fields = ['username', 'email', 'password1', 'password2', 'phone_number', 'address', 'organization_description']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -22,12 +43,12 @@ class HospitalRegistrationForm(UserCreationForm):
 
         return cleaned_data
 
-class HospitalProfileForm(forms.ModelForm):
+class HealthCenterProfileForm(forms.ModelForm):
     class Meta:
-        model = HospitalUser
-        fields = ['email', 'hospital_name', 'phone_number', 'address']
+        model = HealthCenterUser
+        fields = ['email', 'phone_number', 'address']
 
-class HospitalLoginForm(AuthenticationForm):
+class HealthCenterLoginForm(AuthenticationForm):
     pass
 
 # End of Hospital Forms
@@ -40,7 +61,7 @@ class DoctorRegistrationForm(UserCreationForm):
 
     class Meta:
         model = DoctorUser
-        fields = ['username', 'password1', 'password2', 'email', 'specialization', 'phone_number', 'address']
+        fields = ['username',  'email', 'phone_number', 'address', 'associated_organization']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -55,7 +76,7 @@ class DoctorRegistrationForm(UserCreationForm):
 class DoctorProfileForm(forms.ModelForm):
     class Meta:
         model = DoctorUser
-        fields = ['email', 'specialization', 'phone_number', 'address']
+        fields = ['email', 'phone_number', 'address']
 
 class DoctorLoginForm(AuthenticationForm):
     pass
@@ -98,7 +119,7 @@ class ResearchSiteRegistrationForm(UserCreationForm):
 
     class Meta:
         model = ResearchSiteUser
-        fields = ['username', 'password1', 'password2', 'email', 'site_location', 'site_manager', 'phone_number', 'address']
+        fields = ['username', 'password1', 'password2', 'email', 'site_location', 'site_manager', 'phone_number', 'address', 'organization_description']
     
     def clean(self):
         cleaned_data = super().clean()

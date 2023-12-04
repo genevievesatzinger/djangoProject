@@ -66,10 +66,11 @@
             <hr>
         </div>
         {% endif %}
+        
+            <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
+                <h5>Contact Information:</h5> <hr>
 
         {% if protocolSection.contactsLocationsModule.centralContacts %}
-        <div class="shadow p-5 mt-5 mb-5 bg-white rounded" id="resultsTable" style="overflow: auto;">
-            <h5>Contact Information:</h5> <hr>
             {% for contact in protocolSection.contactsLocationsModule.centralContacts %}
             <i class="fa-solid fa-address-book"></i>
                 {% if contact.name %}
@@ -94,9 +95,62 @@
                 <br>
             {% endfor %}
             <hr>
-        </div>
         {% endif %}
 
+        {% if resultsSection.moreInfoModule.pointOfContact %}
+            {% with contact=resultsSection.moreInfoModule.pointOfContact %}
+            <i class="fa-solid fa-address-book"></i>
+                {% if contact.title %}
+                {{contact.title}} ,
+                {% endif %}
+
+                {% if contact.organization %}
+                {{contact.organization}} ,
+                {% endif %}
+
+                {% if contact.phone %}
+                {{contact.phone}} ,
+                {% endif %}
+
+                {% if contact.phoneExt %}
+                {{contact.phoneExt}} ,
+                {% endif %}
+
+                {% if contact.email %}
+                {{contact.email}}
+                {% endif %}
+                <br>
+            {% endwith %}
+            <hr>
+        {% endif %}
+
+        {% if protocolSection.contactsLocationsModule.locations.contacts %}
+            {% for contact in protocolSection.contactsLocationsModule.locations.contacts %}
+            <i class="fa-solid fa-address-book"></i>
+                {% if contact.name %}
+                {{contact.name}} ,
+                {% endif %}
+
+                {% if contact.role %}
+                {{contact.role}} ,
+                {% endif %}
+
+                {% if contact.phone %}
+                {{contact.phone}} ,
+                {% endif %}
+
+                {% if contact.phoneExt %}
+                {{contact.phoneExt}} ,
+                {% endif %}
+
+                {% if contact.email %}
+                {{contact.email}}
+                {% endif %}
+                <br>
+            {% endfor %}
+            <hr>
+            {% endif %}
+        </div>
     </div>
 
 
