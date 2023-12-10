@@ -46,10 +46,22 @@ class HealthCenterRegistrationForm(UserCreationForm):
 class HealthCenterProfileForm(forms.ModelForm):
     class Meta:
         model = HealthCenterUser
-        fields = ['email', 'phone_number', 'address']
+        fields = ['organization_description', 'approved_by', 'is_approved', 'phone_number']  # Add all the fields you need
 
-class HealthCenterLoginForm(AuthenticationForm):
-    pass
+    def clean(self):
+        cleaned_data = super().clean()
+        phone_number = cleaned_data.get("phone_number")
+
+        if not phone_number:
+            raise forms.ValidationError("Phone number is required.")
+        
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', "Passwords don't match")
+
+        return cleaned_data
 
 # End of Hospital Forms
 
@@ -61,7 +73,7 @@ class DoctorRegistrationForm(UserCreationForm):
 
     class Meta:
         model = DoctorUser
-        fields = ['username',  'email', 'phone_number', 'address', 'associated_organization']
+        fields = ['username',  'email', 'phone_number', 'address', 'associated_organization', 'approved_by', 'is_approved']
 
     def clean(self):
         cleaned_data = super().clean()

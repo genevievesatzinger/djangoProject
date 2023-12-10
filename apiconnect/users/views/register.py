@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from ..forms import HealthCenterRegistrationForm, DoctorRegistrationForm
 from ..forms import AdminUserForm, PatientRegistrationForm, ResearchSiteRegistrationForm
+from ..models import AdminUser, HealthCenterUser, DoctorUser
+from django.contrib.auth.decorators import user_passes_test
 
 @login_required
 def register_admin_user(request):
@@ -61,3 +63,24 @@ def register_research_site(request):
         form = ResearchSiteRegistrationForm()
     return render(request, 'register_research_site.html', {'form': form})
 
+
+def is_admin_user(user):
+    return user.is_authenticated and isinstance(user, AdminUser)
+
+@user_passes_test(is_admin_user)
+def unapproved_health_center_users(request):
+    unapproved_users = HealthCenterUser.objects.filter(is_approved=False)
+    return render(request, 'unapproved_health_center_users.html', {'unapproved_users': unapproved_users})
+
+@user_passes_test(is_admin_user)
+def approve_health_center_user(request, user_id):
+    user = get_object_or_404(HealthCenterUser, id=user_id)
+
+    if request.method == 'POST':
+        if 'approve' in request.POST:
+            user.is_approved = True
+            user.approved_by = request.user
+            user.save()
+            return redirect('unapproved_health_center_users')  # Redirect to the list
+
+    return render(request, 'approve_health_center_user.html', {'user': user})

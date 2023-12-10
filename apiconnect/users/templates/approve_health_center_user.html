@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Detail</title>
+</head>
+<body>
+    <h2>User Detail: {{ user.username }}</h2>
+    <p>Phone Number: {{ user.phone_number }}</p>
+    <p>Address: {{ user.address }}</p>
+    <p>Organization Description: {{ user.organization_description }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="approve">Approve User</button>
+    </form>
+</body>
+</html>
